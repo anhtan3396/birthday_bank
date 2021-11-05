@@ -1,0 +1,204 @@
+/* ===== css common ======*/
+html {
+	height: 100%;
+}
+body {
+	margin: 0;
+	height: 100%;
+	font-family: Arial;
+}
+a, ul, li {
+	text-decoration: none;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+h1,h2,h3,h4,h5 {
+	margin: 0;
+	color: #ec699e;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #ec699e;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #ec699e;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #ec699e;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #ec699e;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #ec699e;
+}
+
+/* ===== css for pay ======*/
+.copy-right {
+    font-size: 11px;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+}
+.next-step {
+	margin: 15px auto;
+    display: block;
+    padding: 13px 30px;
+    background-color: #ec699e;
+    border: none;
+    color: #fff;
+    font-size: 1.3em;
+    border-radius: 7px;
+    max-width: 150px;
+}
+.wrapper-pay {
+	background: url(../image/0-background-flower.png) center;
+	background-size: cover;
+	width: 100%;
+    height: 100%;
+    padding-top: 30px;
+}
+.wrapper-pay .content {
+	max-width: 340px;
+    margin: 0 auto;
+    border: 2px solid #ec699e;
+    border-radius: 10px;
+    position: relative;
+    padding: 10px;
+}
+.wrapper-pay .group-btn .btn{
+	width: 42%;
+    line-height: 50px;
+    font-size: 1.4em;
+    border: 2px solid #ec699e;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 3%;
+    text-align: center;
+    color: #ec699e;
+    background-color: #fff;
+}
+.wrapper-pay .group-btn .btn.active {
+	color: #fff;
+	background-color: #ec699e;
+}
+.wrapper-pay .guide-pay {
+    padding: 10px 15px;
+    border: 2px solid #ec699e;
+    background-color: #fff;
+    margin: 10px;
+    border-radius: 10px;
+}
+.wrapper-pay .guide-pay h4 {
+	font-weight: normal;
+	padding: 5px 0;
+	color: #000;
+}
+.wrapper-pay .guide-pay li {
+    font-size: .9em;
+    padding: 5px 0;
+}
+
+/* ===== Thông tin thanh toán ===== */
+.wrapper-pay .title {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+#pay-info .fa-key {
+	color: #fff;
+    font-size: 2em;
+    background-color: #ec699e;
+    padding: 3px;
+}
+#pay-info .inline {
+    border: 2px solid #ec699e;
+    position: relative;
+    width: 90%;
+    overflow: hidden;
+    padding-left: 50px;
+    margin-bottom: 20px;
+    border-radius: 7px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#pay-info .inline input, #pay-info .inline select {
+	border: none;	
+	line-height: 2em;
+    display: block;
+    overflow: hidden;
+    padding: 8.5px 10px;
+    width: 100%;
+    color: #ec699e;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+#pay-info .icon {
+    width: 50px;
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+#pay-info .icon.icon-network {
+    background: url(../image/2-icon-nickname.png) center #ec699e no-repeat;
+    background-size: 25px 25px;
+}
+#pay-info .icon.icon-seri {
+    background: url(../image/3-icon-phone.png) center #ec699e no-repeat;
+    background-size: 25px 25px;
+}
+#pay-info .icon.icon-code {
+    background: url(../image/3-icon-key.png) center #ec699e no-repeat;
+    background-size: 25px 25px;
+}
+#pay-info .inline select {
+	padding: 15px 7px;
+}
+#pay-confirm {
+	border: none;
+}
+.wrapper-info {
+	border: 2px solid #ec699e;
+    background-color: #fff;
+    line-height: 28px;
+}
+.wrapper-info label {
+	color: #ec699e;
+}
+.wrapper-info .info-user {
+	padding: 15px 15px 30px;
+    border-bottom: 2px solid #ec699e;
+}
+.wrapper-info .pay-method {
+	padding: 15px 15px 30px;
+}
+@media(max-width: 360px){
+	.wrapper-pay .content {
+    	max-width: 320px;
+    }
+}
+@media(max-width: 320px){
+	.wrapper-pay .content {
+    	max-width: 300px;
+    }
+    h4 {
+    	font-size: .9em;
+    }
+}

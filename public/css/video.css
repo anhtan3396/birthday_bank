@@ -1,0 +1,90 @@
+/* ===== css common ======*/
+html {
+	height: 100%;
+}
+body {
+	margin: 0;
+	height: 100%;
+	font-family: Arial;
+}
+a, ul, li {
+	text-decoration: none;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+h1,h2,h3,h4,h5 {
+	margin: 0;
+	color: #ec699e;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #ec699e;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #ec699e;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #ec699e;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #ec699e;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #ec699e;
+}
+
+/* ===== css for pay ======*/
+.copy-right {
+    font-size: 11px;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+}
+
+.wrapper-pay {
+	background: url(../image/0-background-flower.png) center;
+	background-size: cover;
+	width: 100%;
+    height: 100%;   
+}
+.wrapper-pay .content {
+	max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.wrapper-pay .description {
+    padding: 10px;
+    border: 2px solid #ec699e;
+    background-color: #fff;
+    border-radius: 10px;
+}
+.wrapper-pay .description h4{
+    text-align: center;
+}
+
+@media(max-width: 360px){
+	.wrapper-pay .content {
+    	max-width: 100%;    
+    }
+}
+@media(max-width: 320px){
+	.wrapper-pay .content {
+    	max-width: 100%;    
+    }
+    h4 {
+    	font-size: .9em;
+    }
+}
