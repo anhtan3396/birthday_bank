@@ -53,11 +53,11 @@ return [
     | the same address. Here, you may specify a name and address that is
     | used globally for all e-mails that are sent by your application.
     |
-    */  
+    */
 
     'from' => [
-        'address' => 'hello@example.com',
-        'name' => 'Thảo Tokyo',
+        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
     /*
@@ -84,9 +84,10 @@ return [
     |
     */
 
-    'username' => 'demoapplaravel@gmail.com',
+    'username' => env('MAIL_USERNAME'),
 
-    'password' => 'Min135792468',
+    'password' => env('MAIL_PASSWORD'),
+
     /*
     |--------------------------------------------------------------------------
     | Sendmail System Path
@@ -118,5 +119,18 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Log Channel
+    |--------------------------------------------------------------------------
+    |
+    | If you are using the "log" driver, you may specify the logging channel
+    | if you prefer to keep mail messages separate from other log entries
+    | for simpler reading. Otherwise, the default channel will be used.
+    |
+    */
+
+    'log_channel' => env('MAIL_LOG_CHANNEL'),
 
 ];
