@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use App\Repositories\UserRepository;
 use App\Repositories\UserCheckedInRepository;
-use App\Repositories\TestRepository;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\File;
 

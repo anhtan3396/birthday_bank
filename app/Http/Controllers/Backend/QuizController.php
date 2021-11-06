@@ -18,10 +18,9 @@ class QuizController extends Controller
     public function index(Request $request,QuizRepository $quizRepository )
     {
         $textQuiz = $request->input('textinput');
-        $levels = $request->input('levels');
-        $types = $request->input('types');
-        $groups = $request->input('groups');
-        
+        $levels = $request->input('levels') ? $request->input('levels'): [];
+        $types = $request->input('types')  ? $request->input('types'): [];
+        $groups = $request->input('groups') ? $request->input('groups'): [];
         $search_query = MQuiz::query();
 
         if($textQuiz)
