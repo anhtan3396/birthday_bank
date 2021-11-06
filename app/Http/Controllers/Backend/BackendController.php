@@ -11,19 +11,16 @@ use Illuminate\Support\Facades\Validator;
 use App\Utils\SessionManager;
 use Illuminate\Support\Facades\Cookie;
 use App\Repositories\UserRepository;
-use App\Repositories\VideoRepository;
-use App\Repositories\BunpoRepository;
-use App\Repositories\TestRepository;
 
 class BackendController extends Controller
 {
     
     //view dashboard 1
-    public function index(TestRepository $test, BunpoRepository $bunpo, VideoRepository $video, UserRepository $user )
+    public function index( UserRepository $user )
     {
-        $totalTests = $test->countTests();
-        $totalBunpos = $bunpo->countBunpous();
-        $totalVideos = $video->countVideos();
+        $totalTests = 0;
+        $totalBunpos = 0;
+        $totalVideos = 0;
         $totalUsers = $user->countUsers();
         return view('Backend.index',
         [
