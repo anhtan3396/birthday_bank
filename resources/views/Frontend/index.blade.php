@@ -1,20 +1,17 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Laravel</title>
-  <link href="{{asset('css/app.css')}}" rel="stylesheet" type="text/css">
-</head>
+@extends('Frontend.masterpage.masterpage')
+@section('titleForm')
+        <h4>Trang chủ</h4>
+@endsection
+@section('content')
 
-<body>
-  <div class="container">
-    <div id="example"></div>
+ <div class="main-content">
+    <div class="container">
+        <div id="example"></div>
+      </div>
   </div>
-  <script src="{{asset('js/app.js')}}"></script>
-</body>
 
-</html>
+<script>
+  /
+</script>
+@endsection

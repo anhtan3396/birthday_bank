@@ -12,6 +12,10 @@ class FrontendController extends Controller
   {
     return view('Frontend.index');
   }
+  public function profile( )
+  {
+    return view('Frontend.profile');
+  }
 
   public function loginIndex()
   {
@@ -36,7 +40,7 @@ class FrontendController extends Controller
 
 
   public function logout()
-  {   
+  {
     Session::flush();
     return redirect()->route('home');
   }
