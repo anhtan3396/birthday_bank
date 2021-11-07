@@ -60,23 +60,18 @@ class QuizRepository extends BaseRepository
 			$quizModel = $quizModel->where('created_time', '<=', $conditions["searchQuizToDate"]);
         }
         if(isset($conditions["existQuizIds"]) && !empty($conditions["existQuizIds"])) {
-            $quizModel = $quizModel->whereNotIn('quiz_id', explode(',', $conditions["existQuizIds"]));
+            $quizModel = $quizModel->whereNotIn('id', explode(',', $conditions["existQuizIds"]));
         }
 		$quizModel = $quizModel->where('deleted_flag', 0);
         return $quizModel->with(["type","level","group"])->select([
-            "quiz_id",
-            "level_id",
-            "quiz_type",
-            "quiz_kbn",
+            "id",
+            "level",
             "content",
             "image",
-            "sound",
             "ans1",
             "ans2",
             "ans3",
             "ans4",
-            "ans5",
-            "ans6",
             "right_ans",
             "right_ans_exp"
         ])->paginate(15);

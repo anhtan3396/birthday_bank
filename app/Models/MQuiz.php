@@ -9,16 +9,14 @@ use App\Models\BaseModel;
  */
 class MQuiz extends BaseModel
 {
-    protected $table = 'm_quiz';
+    protected $table = 'quizs';
 
-    protected $primaryKey = 'quiz_id';
+    protected $primaryKey = 'id';
 
 	public $timestamps = false;
 
     protected $fillable = [
-        'level_id',
-        'quiz_type',
-        'quiz_kbn',
+        'level',
         'content',
         'image',
         'sound',
@@ -26,15 +24,11 @@ class MQuiz extends BaseModel
         'ans2',
         'ans3',
         'ans4',
-        'ans5',
-        'ans6',
         'right_ans',
         'right_ans_exp',
         'deleted_flag',
-        'created_user',
-        'created_time',
-        'updated_user',
-        'updated_time'
+        'created_at',
+        'updated_at',
     ];
 
     protected $guarded = [];

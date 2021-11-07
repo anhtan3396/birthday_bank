@@ -9,33 +9,26 @@ use App\Models\BaseModel;
  */
 class MUser extends BaseModel
 {
-    protected $table = 'm_user';
+    protected $table = 'users';
 
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'id';
 
 	public $timestamps = false;
 
     protected $fillable = [
-        'login_id',
-        'sns_id',
         'email',
-        'phone_num',
+        'phone',
         'nick_name',
         'password',
         'login_type',
         'user_role',
-        'remain_coin',
         'deleted_flag',
-        'created_user',
-        'created_time',
-        'updated_user',
-        'updated_time',
         'avatar',
-        'api_token',
-        'remember_token',
-        'token',
-        'request_password_hash',
-        'request_expired'
+        'created_at',
+        'created_at',
+        'level',
+        'experience',
+        'group_id'
     ];
 
     protected $hidden = ['password'];
