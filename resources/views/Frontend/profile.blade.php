@@ -7,7 +7,7 @@
 
  <div class="main-content">
     <div class="container">
-        <div id="example"></div>
+
       </div>
   </div>
 
