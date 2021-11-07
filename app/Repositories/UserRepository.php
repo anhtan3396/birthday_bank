@@ -21,20 +21,7 @@ class UserRepository extends BaseRepository
     public function getByEmailOrLoginId($userNameOrEmail) {
         $userInfo = $this->model
             ->where("email", "=", $userNameOrEmail)
-            ->orWhere("login_id", "=", $userNameOrEmail)
-            ->first([
-                'user_id',
-                'login_id',
-                'sns_id',
-                'email',
-                'phone_num',
-                'nick_name',
-                'password',
-                'user_role',
-                'login_type',
-                'remain_coin',
-                'api_token'
-            ]);
+            ->first();
         return $userInfo;
     }
     /////////////login
@@ -44,7 +31,7 @@ class UserRepository extends BaseRepository
                 ['deleted_flag','!=',1]
             ])
             ->first([
-                'user_id',
+                'id',
                 'login_id',
                 'sns_id',
                 'email',
@@ -66,7 +53,7 @@ class UserRepository extends BaseRepository
     public function create_api_token($api_token,$email)
     {          $this->model->where('email',$email)->update(['api_token' => $api_token]);
         return $this->model->where('email',$email)->get([
-            'user_id',
+            'id',
             'login_id',
             'email',
             'phone_num',
@@ -100,12 +87,12 @@ class UserRepository extends BaseRepository
             'updated_time'  => $data['updated_time'],
             'api_token'     => $data['api_token'],
         ]);
-         return $this->model->where('login_id',$data['login_id'])->first(['user_id']);
+         return $this->model->where('login_id',$data['login_id'])->first(['id']);
     }
         public function updateAvatar($nameImage,$user_id)
-    {               $this->model->where('user_id',$user_id)->update(['avatar' => $nameImage]);
-            return  $this->model->where('user_id',$user_id)->get([
-                'user_id',
+    {               $this->model->where('id',$user_id)->update(['avatar' => $nameImage]);
+            return  $this->model->where('id',$user_id)->get([
+                'id',
                 'login_id',
                 'email',
                 'phone_num',
@@ -117,17 +104,17 @@ class UserRepository extends BaseRepository
 
     /////////////////////edit
     public function check_API_token_Test($user_id) {
-        $api_token = $this->model->where([['user_id',$user_id],['deleted_flag','!=',1]])->first(['api_token']);
+        $api_token = $this->model->where([['id',$user_id],['deleted_flag','!=',1]])->first(['api_token']);
         return $api_token;
     }
     public function getLoginIDForEdit($user_id) {
-        return $this->model->where([['user_id',$user_id],['deleted_flag','!=',1]])->first(['login_id']);
+        return $this->model->where([['id',$user_id],['deleted_flag','!=',1]])->first(['login_id']);
     }
     public function editProfile($data,$login_id)
     {
         $this->model->where('login_id', $login_id)->update($data);
         return $this->model->where('login_id',$login_id)->get([
-            'user_id',
+            'id',
             'login_id',
             'email',
             'phone_num',
@@ -137,54 +124,6 @@ class UserRepository extends BaseRepository
             'api_token',
         ]);
     }
-
-
-
-    //////////////////loginsocial
-            public function createUserSocial($data_create)
-    {               $this->model->insert($data_create);
-            return  $this->model->where([['login_id',$data_create['login_id']],['deleted_flag','!=',1]])->get([
-                'user_id',
-                'login_id',
-                'email',
-                'phone_num',
-                'nick_name',
-                'avatar',
-                'api_token',
-                'remain_coin'
-                ]);
-    }
-        public function checkUserLoginSocial($sns_id) {
-         return $this->model->where([['sns_id',$sns_id],['deleted_flag','!=',1]])->get(['user_id']);
-    }
-        public function updateUserSocial($data_update,$sns_id)
-    {               $this->model->where('sns_id',$sns_id)->update($data_update);
-            return  $this->model->where('sns_id',$sns_id)->get([
-                'user_id',
-                'login_id',
-                'email',
-                'phone_num',
-                'nick_name',
-                'avatar',
-                'api_token',
-                'sns_id',
-                'remain_coin'
-                ]);
-    }
-    ////////////////////////refresh
-            public function refreshLogin($api_token,$user_id)
-    {               $this->model->where('user_id',$user_id)->update(['api_token' => $api_token]);
-            return  $this->model->where('user_id',$user_id)->get([
-                'user_id',
-                'login_id',
-                'email',
-                'phone_num',
-                'nick_name',
-                'avatar',
-                'api_token',
-                ]);
-    }
-    ////////////////
 
     public static function findUser($name)
     {
@@ -209,30 +148,13 @@ class UserRepository extends BaseRepository
     }
 
     public function getEmail($user_id){
-        $email = $this->model->where('user_id',$user_id)->get(['email']);
+        $email = $this->model->where('id',$user_id)->get(['email']);
         return $email->toArray();
     }
-    public function check_login_id($email) {
-        $api_token = $this->model->where('email',$email)->first(['login_id']);
-        return $api_token->toArray();
-    }
 
-        public function check_token_mail($token,$user_id) {
-        $result = $this->model->where([
-            ['user_id','=',$user_id],
-            ['token','=',$token]
-            ])->get(['email']);
-        return $result->toArray();
-    }
     public static function findUserRole($user_id)
     {
         return MUser::where('email', $user_id)->first();
-    }
-    public function getUser($user_id, $api_token)
-    {
-        $user = new MUser();
-        $result = $user->where("user_id" , $user_id)->where("api_token", $api_token)->first();
-        return $result;
     }
 
     //count total user(back end)
@@ -241,12 +163,5 @@ class UserRepository extends BaseRepository
         $total = $this->model->where("deleted_flag",0)->count();
         return $total;
     }
-	/// son recharge
-	public function updateCoin($data)
-    {
-        $user = new Muser();
-        $ud_user = $user->findOrFail($data["user_id"]);
-        $ud_user->remain_coin = $ud_user->remain_coin + $data["coin"];
-        $ud_user -> save();
-    }
+
 }

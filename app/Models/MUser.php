@@ -35,5 +35,9 @@ class MUser extends BaseModel
     
     protected $guarded = [];
 
+    public function group()
+    {
+        return $this->belongsTo('App\Models\Group');
+    }
         
 }

@@ -16,10 +16,10 @@ use App\Utils\SessionManager;
 class UserController extends Controller
 {
 
-    public function profilePage($user_id)
+    public function profilePage($id)
     {
        
-        $user = MUser::find((int) $user_id);
+        $user = MUser::find((int) $id);
         return view('Backend.User.profile',['user' => $user]);
         
     }
@@ -31,12 +31,12 @@ class UserController extends Controller
     }
     
     //form edit user's infor  
-    public function editForm($user_id)
+    public function editForm($id)
     {
         $currentLogin = SessionManager::getLoginInfo();
-        $user = MUser::find((int) $user_id);
-        $validator = Validator::make(['user_id' => $user_id], [
-            'user_id'   => 'exists:m_user,user_id'
+        $user = MUser::find((int) $id);
+        $validator = Validator::make(['id' => $id], [
+            'id'   => 'exists:users,id'
             ], []);
 
         if ($validator->fails())
@@ -72,7 +72,7 @@ class UserController extends Controller
         $search_query = MUser::query();
         if($phone_num)
         {
-            $search_query->where('phone_num', 'like', '%'.$phone_num.'%');
+            $search_query->where('phone', 'like', '%'.$phone_num.'%');
         }
         if($email)
         {
@@ -148,13 +148,13 @@ class UserController extends Controller
             "remain_coin"    =>$remain_coin,
             "user_role"      =>$user_role,
             ]);
-        if ($user->user_id > 0) {
+        if ($user->id > 0) {
                 // Edit image
             if(Input::hasfile('avatar'))
             {
                     //image
                 $nameImage = Input::file('avatar')->getClientOriginalExtension();
-                $imageURL = $user->user_id . "." . date("H_i_s",time()). ".". $nameImage;
+                $imageURL = $user->id . "." . date("H_i_s",time()). ".". $nameImage;
                 if(File::exists(public_path('upload/image/avatar/') . $imageURL))
                 {
                     unlink(public_path('upload/image/avatar/') . $imageURL);   
@@ -166,7 +166,7 @@ class UserController extends Controller
             }
             $userRepository->update([
                 'avatar'     =>  $imageURL,
-                ], $user->user_id, "user_id");
+                ], $user->id, "id");
 
             return redirect('users')->with('notify', "Add success!");
         }
@@ -224,7 +224,7 @@ public function update(Request $request, $id, UserRepository $userRepository )
                     "avatar"          => $imageURL,
                     ],
                     $id,
-                    "user_id"
+                    "id"
                     );   
             }
             $userRepository->update(
@@ -234,7 +234,7 @@ public function update(Request $request, $id, UserRepository $userRepository )
                 "remain_coin" => $request->get('remain_coin')
                 ], 
                 $id,
-                "user_id"
+                "id"
                 );
 
             return redirect('users');
@@ -274,7 +274,7 @@ public function update(Request $request, $id, UserRepository $userRepository )
                 "remain_coin" => $request->get('remain_coin'),
                 ], 
                 $id,
-                "user_id"
+                "id"
                 );
             return redirect('users');
         }
@@ -292,7 +292,7 @@ public function destroy($id, UserRepository $userRepository)
             "deleted_flag"          => 1, 
             ],
             $id,
-            "user_id"
+            "id"
             );
         return redirect()->back();
     }else
@@ -307,7 +307,7 @@ public function destroy($id, UserRepository $userRepository)
                 "deleted_flag"          => 1, 
                 ],
                 $id,
-                "user_id"
+                "id"
                 );
             return redirect()->back();
         }

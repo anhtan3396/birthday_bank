@@ -40,7 +40,7 @@ class BackendController extends Controller
         $sessionLogin = SessionManager::getLoginInfo();
         if($sessionLogin)
         {
-            return redirect()->back();
+          return redirect()->back();
         }
         return view('Backend.loginPage');
     }
@@ -49,59 +49,48 @@ class BackendController extends Controller
     public function login(Request $request,UserRepository $userRepository )
     {
         //get cookie
-        $cookie = Cookie::get('remember_token');
-        if($cookie != null)
-        {
-            $userObj = MUser::where('remember_token',$cookie)->first();
-            SessionManager::setLoginInfo($userObj);
-            return redirect('/'); 
-        }else
-        {
-            $validator = Validator::make($request->all(), [
-            'email'             => 'required',
-            'password'          => 'required'
-            ],
-            [
-                'email.required'    => 'Vui lòng nhập email người dùng',
-                'password.required'  => 'Vui lòng nhập mật khẩu để đăng nhập.',
-            ]);
+        $validator = Validator::make($request->all(), [
+          'email'             => 'required',
+          'password'          => 'required'
+          ],
+          [
+              'email.required'    => 'Vui lòng nhập email người dùng',
+              'password.required'  => 'Vui lòng nhập mật khẩu để đăng nhập.',
+          ]);
 
-            if ($validator->fails())
-            {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-            else
-            {
-                $email = $request->get('email');
-                $password = $request->get('password');
-                $user = $userRepository->findUser($email);
-                
-                if ($user)
-                {
-                    if($user->user_role == 1 || $user->user_role == 3)
-                    {
-                        if (Hash::check($password, $user['password']))
-                        {
-                            //if check remember me, rand auto a string and make remember_token of user 
-                            if($request->get('remember'))
-                            {
-                                $user->remember_token = SessionManager::generateToken();
-                                $user->save();
-                                Cookie::queue(Cookie::make('remember_token', $user->remember_token, 119));
-                                
-                            }
-                            SessionManager::setLoginInfo($user);
-                            return redirect('/');                    
-                        }
-                        else return redirect()->back()->withErrors(['login' => "Tài khoản hoặc mật khẩu không đúng"])->withInput();
-                    }else return redirect()->back()->withErrors(['login' => "Tên người dùng không phải là admin "])->withInput();
-                        
-                }
-                else return redirect()->back()->withErrors(['login' => "Tài khoản hoặc mật khẩu không đúng"])->withInput();
-
-                
-            }
-        }
+          if ($validator->fails())
+          {
+              return redirect()->back()->withErrors($validator)->withInput();
+          }
+          else
+          {
+              $email = $request->get('email');
+              $password = $request->get('password');
+              $user = $userRepository->findUser($email);
+              if ($user)
+              {
+                  if($user->user_role === 1)
+                  {
+                      if (Hash::check($password, $user['password']))
+                      {
+                          //if check remember me, rand auto a string and make remember_token of user 
+                          if($request->get('remember'))
+                          {
+                              $user->remember_token = SessionManager::generateToken();
+                              $user->save();
+                              Cookie::queue(Cookie::make('remember_token', $user->remember_token, 119));
+                              
+                          }
+                          SessionManager::setLoginInfo($user);
+                          return redirect()->route('dashboard');                    
+                      }
+                      else return redirect()->back()->withErrors(['login' => "Tài khoản hoặc mật khẩu không đúng"])->withInput();
+                  }else return redirect()->back()->withErrors(['login' => "Tên người dùng không phải là admin "])->withInput();
+                      
+              }
+              else return redirect()->back()->withErrors(['login' => "Tài khoản hoặc mật khẩu không đúng"])->withInput();
+              
+          }
         
     
     }
@@ -111,8 +100,7 @@ class BackendController extends Controller
     {   
         Cookie::queue(Cookie::forget('remember_token'));
         Session::flush();
-        return redirect('login');
-        
+        return redirect()->route('admin_login');
     }
 
 }

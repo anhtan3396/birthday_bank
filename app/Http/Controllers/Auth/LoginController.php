@@ -49,14 +49,11 @@ class LoginController extends Controller
 	 * @param  App\Repositories\UserRepository  $userRepository
 	 * @return Response
 	 */
-	public function postLogin(
-		Request $request,
-        UserRepository $userRepository
-    )
-	{
+	public function postLogin(Request $request,UserRepository $userRepository)
+	  {
         // create the validator rules.
         $validator = Validator::make($request->all(), [
-            'emailOrLoginId'    => 'required',
+            'email'             => 'required',
             'password'          => 'required'
         ]);
         // we will check validation input parameters.
@@ -64,17 +61,13 @@ class LoginController extends Controller
         {
             return redirect("login")->withErrors($validator)->withInput();
         }
-        $email = $request->get('emailOrLoginId');
+        $email = $request->get('email');
         Log::info('Login user:' . $email);
         // get the user info by email or login id.
         $userInfo = $userRepository->getByEmailOrLoginId($email);
         // we will check the user info.
         if($userInfo == null) {
             return redirect("login")->withErrors(['login' => "User doesn't match"])->withInput();
-        }
-        // we will check the user role.
-        if($userInfo->user_role != 0) {
-            return redirect("login")->withErrors(['login' => "Username is not admin "])->withInput();
         }
         $password = $request->get('password');
         // we will check the password.

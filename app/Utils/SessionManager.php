@@ -23,7 +23,7 @@ class SessionManager extends Session
     public static function isAdmin() {
         $loginUserInfo = SessionManager::getLoginInfo();
         $isAdmin = false;
-        if($loginUserInfo != null && ($loginUserInfo->user_role == 1 || $loginUserInfo->user_role == 3)) {
+        if($loginUserInfo != null && ($loginUserInfo->user_role == 1)) {
             $isAdmin = true;
         }
         return $isAdmin;
@@ -33,7 +33,7 @@ class SessionManager extends Session
         $loginUserInfo = SessionManager::getLoginInfo();
         $loginId = null;
         if($loginUserInfo != null) {
-            $loginId = $loginUserInfo->user_id;
+            $loginId = $loginUserInfo->id;
         }
         return $loginId;
     }

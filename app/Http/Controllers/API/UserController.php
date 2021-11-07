@@ -52,7 +52,7 @@ class UserController extends Controller
             // }else{
             if ($user){
                 if($user->user_role == 0 || $user->user_role == 1){
-                    $user_point = $testRepository->getPointUser($user->user_id);
+                    $user_point = $testRepository->getPointUser($user->id);
                     $array_user_point = array();
                     $array_test_id = array();
                     foreach ($user_point as $key) {
@@ -181,13 +181,13 @@ class UserController extends Controller
                     $file = $request->file('avatar');
                     if(Input::hasfile('avatar'))
                     {
-                        $nameImage = $user->user_id.".".date("H_i_s",time()).'.'.$file->getClientOriginalExtension();
+                        $nameImage = $user->id.".".date("H_i_s",time()).'.'.$file->getClientOriginalExtension();
                         $file->move('upload/image/avatar/',$nameImage);
                     } else
                     {
                         $nameImage = "default_avt.png";
                     }
-                    $user = $userRepository->updateAvatar($nameImage,$user->user_id);
+                    $user = $userRepository->updateAvatar($nameImage,$user->id);
 
                     return response()->json([
                         'resultCode'=> 0,
@@ -274,7 +274,7 @@ class UserController extends Controller
                                 }
                             }
                             $image = base64_decode($request->avatar);
-                            $image_name= $user_id.".".date("H_i_s",time()).".png";
+                            $image_name= $id.".".date("H_i_s",time()).".png";
                             $path = public_path() . "/upload/image/avatar/" . $image_name;
 
                             file_put_contents($path, $image);
@@ -290,7 +290,7 @@ class UserController extends Controller
                         }
                     }
 
-                    $result = $userRepository->getLoginIDForEdit($request->user_id);
+                    $result = $userRepository->getLoginIDForEdit($request->id);
                     $login_id = $result['login_id'];
                     if (in_array($login_id, $array_Login_id, true)) {
                         $user = $userRepository->editProfile($data, $login_id);

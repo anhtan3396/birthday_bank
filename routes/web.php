@@ -1,30 +1,16 @@
 <?php
 
-Route::group(['prefix' => '/'], function()
+Route::group(['prefix' => '/admin'], function()
 {
     //login
-    Route::get('/login', 'Backend\BackendController@loginIndex');
-    Route::post('/login', 'Backend\BackendController@login');
-    Route::get('/logout', 'Backend\BackendController@logout');
-    //resetPass
-    Route::get('/send', 'Backend\ForgotPassController@index');
-    Route::post('/send', 'Backend\ForgotPassController@sendMail');
-
-    Route::get('/resetPassword/{email}/{hash}',['as' => 'reset','uses' =>'Backend\ForgotPassController@resetPassword']);
-
-    Route::post('/resetPassword/{email}/{hash}',['as' => 'reset','uses' =>'Backend\ForgotPassController@updatePass']);
-     //reset pass API
-    Route::get('/forgotPassword/{email}/{hash}', ['as' => 'forgotPass','uses' => 'Backend\ForgotPassAPIController@forgotPassword']);
-
-    Route::post('/forgotPassword/{email}/{hash}',['as' => 'forgotPass','uses' => 'Backend\ForgotPassAPIController@updatePassword']);
-
-    //show video cho app
-    Route::get('/showVideo','Backend\VideoController@showVideo');
+    Route::get('/login', 'Backend\BackendController@loginIndex')->name("admin_login");
+    Route::post('/login', 'Backend\BackendController@login')->name("post_admin_login");
+    Route::get('/logout', 'Backend\BackendController@logout')->name("admin_logout");
 
     //web quản trị
     Route::group(['middleware' => ['AdminAuthencation']], function () {
         //dashboard
-        Route::get('/', ['as' => 'home','uses'=> 'Backend\BackendController@index']);
+        Route::get('/', ['as' => 'dashboard','uses'=> 'Backend\BackendController@index']);
         //user
         Route::get('/profile/{id}',[ 'as' => 'profile', 'uses' => 'Backend\UserController@profilePage']);
         Route::get('/users/add',['as' => 'add','uses'=> 'Backend\UserController@createUser']);
@@ -45,5 +31,19 @@ Route::group(['prefix' => '/'], function()
     });
 });
 
+//site
+Route::group(['prefix' => '/'], function()
+{
+  Route::get('/', ['as' => 'home','uses'=> 'Frontend\FrontendController@index']);    
+  Route::get('/login', 'Frontend\FrontendController@loginIndex')->name("guest_login");
+  Route::post('/login', 'Auth\LoginController@postLogin')->name("post_guest_login");
+  Route::get('/logout', 'Frontend\FrontendController@logout')->name("guest_logout");
+
+  Route::get('/reset-password', 'Frontend\FrontendController@resetPassIndex')->name("guest_reset_pass");
+  Route::post('/reset-password', 'Frontend\FrontendController@resetPass')->name("post_guest_reset_pass");
+  Route::group(['middleware' => ['auth']], function () {
+    
+  });
+});
 
 
