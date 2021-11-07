@@ -9,7 +9,7 @@ $user_role = MSetting::where('s_key','USER_ROLE')->get();
 @section('titleForm')
 <h4>Chỉnh sửa người dùng</h4>
 @endsection
-@section('content') 
+@section('content')
 <div class="bg-form">
     <!-- Form danh sách câu hỏi -->
     <form class="form-horizontal" enctype="multipart/form-data" method="post" >
@@ -25,7 +25,7 @@ $user_role = MSetting::where('s_key','USER_ROLE')->get();
                     <strong style="color: red;">{{ $errors->first('email') }}</strong>
                 </span>
                 @endif
-            </div>                              
+            </div>
         </div>
         <hr>
         <!-- End Email -->
@@ -54,7 +54,7 @@ $user_role = MSetting::where('s_key','USER_ROLE')->get();
                 <strong style="color: red;">{{ $errors->first('phone_num') }}</strong>
             </span>
             @endif
-        </div>                              
+        </div>
     </div>
     <hr>
     <!-- End Phone -->
@@ -68,7 +68,7 @@ $user_role = MSetting::where('s_key','USER_ROLE')->get();
                 <strong style="color: red;">{{ $errors->first('password') }}</strong>
             </span>
             @endif
-        </div> 
+        </div>
     </div>
     <hr>
     <!-- End Pass -->
@@ -91,7 +91,7 @@ $user_role = MSetting::where('s_key','USER_ROLE')->get();
                 <strong style="color: red;">{{ $errors->first('remain_coin') }}</strong>
             </span>
             @endif
-        </div>                              
+        </div>
     </div>
     <hr>
     <!-- End Remain_coin -->
@@ -147,7 +147,7 @@ $user_role = MSetting::where('s_key','USER_ROLE')->get();
                         var output = document.getElementById('output');
                         output.src = URL.createObjectURL(event.target.files[0]);
                     };
-                </script> 
+                </script>
             </div>
             <p><img id="output" style="width:100px" class="img-responsive"/></p>
         </div>
@@ -166,7 +166,7 @@ $user_role = MSetting::where('s_key','USER_ROLE')->get();
     <div class="form-group">
         <!-- Button -->
         <div class="control-button">
-            <a href="{{ asset('users') }}" class="btn btn-primary">
+            <a href="{{ asset('admin/users') }}" class="btn btn-primary">
                 <span class="glyphicon glyphicon-arrow-left"></span>Quay lại
             </a>
             <button id="submitButton" name="submitButton" class="btn btn-success">
@@ -174,7 +174,7 @@ $user_role = MSetting::where('s_key','USER_ROLE')->get();
             </div>
             <!-- /End Button -->
         </div>
-    </div>   
+    </div>
 </form>
 </div>
 @endsection

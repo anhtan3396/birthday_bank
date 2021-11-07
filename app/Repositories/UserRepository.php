@@ -14,7 +14,7 @@ class UserRepository extends BaseRepository
      * @param  App\Models\MUser $user
      * @return void
      */
-    public function __construct(MUser $user) 
+    public function __construct(MUser $user)
     {
         $this->model = $user;
     }
@@ -39,9 +39,6 @@ class UserRepository extends BaseRepository
                 'nick_name',
                 'password',
                 'user_role',
-                'login_type',
-                'remain_coin',
-                'api_token'
             ]);
         return $userInfo;
     }
@@ -77,15 +74,12 @@ class UserRepository extends BaseRepository
             'phone_num'     => $data['phone_num'],
             'nick_name'     => $data['nick_name'],
             'user_role'     => $data['user_role'],
-            'login_type'    => $data['login_type'],
-            'remain_coin'   => $data['remain_coin'],// =0
             'sns_id'        => $data['sns_id'],// =0
             'deleted_flag'  => $data['deleted_flag'],
             'created_user'  => $data['created_user'],
             'created_time'  => $data['created_time'],
             'updated_user'  => $data['updated_user'],
             'updated_time'  => $data['updated_time'],
-            'api_token'     => $data['api_token'],
         ]);
          return $this->model->where('login_id',$data['login_id'])->first(['id']);
     }
@@ -141,7 +135,7 @@ class UserRepository extends BaseRepository
         return false;
     }
 
-    public function getAllUsers($search_query) 
+    public function getAllUsers($search_query)
     {
         $users = $search_query->where("deleted_flag",0)->paginate(20);
         return $users;

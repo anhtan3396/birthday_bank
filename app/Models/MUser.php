@@ -20,7 +20,6 @@ class MUser extends BaseModel
         'phone',
         'nick_name',
         'password',
-        'login_type',
         'user_role',
         'deleted_flag',
         'avatar',
@@ -32,12 +31,12 @@ class MUser extends BaseModel
     ];
 
     protected $hidden = ['password'];
-    
+
     protected $guarded = [];
 
     public function group()
     {
         return $this->belongsTo('App\Models\Group');
     }
-        
+
 }

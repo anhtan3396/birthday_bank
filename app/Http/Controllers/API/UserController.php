@@ -154,9 +154,6 @@ class UserController extends Controller
                 'deleted_flag'      => 0,
                 'sns_id'        => null,
                 'user_role'     => 0,
-                'login_type'    => 1,
-                'remain_coin'   => 0,
-                'api_token'     => null,
             ]);
 
             $check = $userRepository->getLoginId();
@@ -388,14 +385,14 @@ class UserController extends Controller
             }else{
                 $file = $request->file('avatar');
                 if(Input::hasfile('avatar'))
-                { 
+                {
                     $nameImage = $request->nick_name.".".$file->getClientOriginalExtension();
                     $file->move('upload/avatar/',$nameImage);
                 } else
                 {
                     $nameImage = "default_avt.png";
                 }
-            $data_create            =   [ 
+            $data_create            =   [
                     'email'         => $request->login_id,
                     'login_id'      => $request->login_id,
                     'nick_name'     => $request->nick_name,
@@ -408,14 +405,11 @@ class UserController extends Controller
                     'deleted_flag'  => 0,
                     'sns_id'        => $sns_id,
                     'user_role'     => 0,
-                    'login_type'    => 1,
-                    'remain_coin'   => null,
-                    'api_token'     => $api_token,
                     'avatar'        => $nameImage
                                     ];
                 $user               = $userRepository->createUserSocial($data_create);
             }
-            
+
             return response()->json([
                     'resultCode'=> 0,
                     'message'   => 'Đăng nhập thành công!',

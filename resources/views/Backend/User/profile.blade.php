@@ -71,10 +71,10 @@ $created_user = MUser::find((int) $user->created_user);
       <div class="form-group">
         <!-- Button -->
         <div class="control-button">
-          <a href="{{ asset('users')}}" class="btn btn-primary">
+          <a href="{{ asset('admin/users')}}" class="btn btn-primary">
             <span class="glyphicon glyphicon-arrow-left"></span>Quay lại
           </a>
-          <a href="{{ asset ('users/edit/'. $user->id) }}" class="btn btn-success">
+          <a href="{{ asset ('admin/users/edit/'. $user->id) }}" class="btn btn-success">
             <span class="glyphicon glyphicon-edit"></span>Chỉnh sửa người dùng
           </a>
         </div>

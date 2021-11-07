@@ -9,7 +9,7 @@
 @section('titleForm')
     <h4>Tạo câu hỏi</h4>
 @endsection
-@section('content') 
+@section('content')
 
 <div class="bg-form">
     <!-- Form danh sách câu hỏi -->
@@ -17,7 +17,7 @@
         {{ csrf_field() }}
         <fieldset>
             <!-- Trình độ -->
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label class="col-md-4 control-label" for="comparison">Trình độ</label>
                 <div class="col-md-4">
                     <select id="comparison" name="levels" class="form-control">
@@ -34,7 +34,7 @@
                     @endif
                 </div>
              </div>
-            <hr>
+            <hr> --}}
             <!-- /End Trình độ -->
             <!-- Loại -->
             <div class="form-group">
@@ -43,7 +43,7 @@
                     <select id="comparison" name="types" class="form-control">
                     @foreach($types as $type)
                         <option value="{{ $type->s_value }}" @if (old('types') == $type->s_value) selected @endif>{{ $type->s_name }}</option>
-                    @endforeach  
+                    @endforeach
                     </select>
                      @if ($errors->has('types'))
                         <span class="help-block">
@@ -55,7 +55,7 @@
             <hr>
             <!-- /End Loại -->
             <!-- Nhóm -->
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label class="col-md-4 control-label" for="reqType">Nhóm</label>
                 <div class="col-md-8">
                 @foreach($groups as $group)
@@ -67,8 +67,8 @@
                         </span>
                 @endif
                 </div>
-             </div>   
-            <hr>
+             </div>
+            <hr> --}}
             <!-- /End Nhóm -->
             <!-- Câu hỏi -->
             <div class="form-group">
@@ -81,7 +81,7 @@
                       </span>
                   @endif
                   </div>
-                  
+
             </div>
             <hr>
             <!-- /End Câu hỏi -->
@@ -97,7 +97,7 @@
                               var output = document.getElementById('output');
                               output.src = URL.createObjectURL(event.target.files[0]);
                           };
-                          </script> 
+                          </script>
                       </div>
                       <p><img id="output" style="width:100px" class="img-responsive"/></p>
                       @if ($errors->has('image'))
@@ -105,12 +105,12 @@
                               <strong style="color: red;">{{ $errors->first('image') }}</strong>
                           </span>
                       @endif
-                  </div>   
+                  </div>
             </div>
-            <hr>                 
+            <hr>
             <!-- /End Hình ảnh -->
             <!-- Âm thanh -->
-            <div class="form-group">
+            {{-- <div class="form-group">
                <label class="col-md-4 control-label">Âm thanh</label>
                   <div class="col-md-6">
                       <script>
@@ -125,15 +125,15 @@
                       <!-- load audio when choose -->
                       <audio controls id="audiosource" style="display:none">
                           <source type="audio/mp3"  />
-                      </audio> 
+                      </audio>
                       @if ($errors->has('sound'))
                           <span class="help-block">
                               <strong style="color: red;">{{ $errors->first('sound') }}</strong>
                           </span>
-                      @endif  
+                      @endif
                   </div>
             </div>
-            <hr>
+            <hr> --}}
             <!-- /End Âm thanh -->
             <!-- Câu lựa chọn -->
             <div class="form-group">
@@ -180,7 +180,7 @@
                   </span>
                </div>
                <div class="col-md-4 col-sm-4 col-xs-4 answer">
-                  <input type="radio" id="radio4" name="rightAns" value="1" checked="checked"> 
+                  <input type="radio" id="radio4" name="rightAns" value="1" checked="checked">
                   <label for="radio4"><span></span></label>
                   <input type="radio" id="radio5" name="rightAns" value="2"/>
                   <label for="radio5"><span></span></label>
@@ -190,7 +190,7 @@
                   <label for="radio7"><span></span></label>
                </div>
             </div>
-            
+
             <hr>
             <!-- /End Câu lựa chọn -->
             <!-- Giải thích -->
@@ -221,7 +221,7 @@
                 </div>
                 <!-- /End Button -->
             </div>
-        </div>   
+        </div>
         <!-- /End Button -->
     </form>
     <!--/End Form danh sách câu hỏi -->
