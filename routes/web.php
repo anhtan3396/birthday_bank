@@ -34,7 +34,7 @@ Route::group(['prefix' => '/admin'], function()
 //site
 Route::group(['prefix' => '/'], function()
 {
-  Route::get('/', ['as' => 'home','uses'=> 'Frontend\FrontendController@index']);    
+  Route::get('/', ['as' => 'home','uses'=> 'Frontend\FrontendController@index']);
   Route::get('/login', 'Frontend\FrontendController@loginIndex')->name("guest_login");
   Route::post('/login', 'Auth\LoginController@postLogin')->name("post_guest_login");
   Route::get('/logout', 'Frontend\FrontendController@logout')->name("guest_logout");
@@ -42,7 +42,7 @@ Route::group(['prefix' => '/'], function()
   Route::get('/reset-password', 'Frontend\FrontendController@resetPassIndex')->name("guest_reset_pass");
   Route::post('/reset-password', 'Frontend\FrontendController@resetPass')->name("post_guest_reset_pass");
   Route::group(['middleware' => ['auth']], function () {
-    
+
   });
 });
 

@@ -47,7 +47,7 @@ $setting = new MSetting();
           <button id="searchButton" name="searchButton" class="btn btn-search pull-right">
             <span class="glyphicon glyphicon-search"></span>Tìm kiếm
           </button>
-          <a href="{{ asset('users') }}" class="btn btn-primary"><span
+          <a href="{{ asset('admin/users') }}" class="btn btn-primary"><span
               class="glyphicon glyphicon-refresh"></span>Reset</a>
         </div>
         <!-- /End Button -->
@@ -61,7 +61,7 @@ $setting = new MSetting();
 <!-- /End Info search -->
 <!-- Button -->
 <div class="col-md-4 btn-create">
-  <a href="{{ asset ('users/add') }}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>Tạo người
+  <a href="{{ asset ('admin/users/add') }}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>Tạo người
     dùng mới</a>
 </div>
 <!-- /End Button -->
@@ -90,12 +90,12 @@ $setting = new MSetting();
           <td>{{ $user->id }}</td>
           <td>{{ $user->email }}</td>
           <!-- <th>{{ $user->phone_num }}</th> -->
-          <th><a href="{{asset('profile/'. $user->id) }}">{{ $user->nick_name }}</a></th>
+          <th><a href="{{asset('admin/profile/'. $user->id) }}">{{ $user->nick_name }}</a></th>
           <th>{{ $user->experience }}</th>
           <th>{{ $user->level }}</th>
           <th>{{ $user->group ? $user->group->name : "~"}}</th>
           <td class="text-center">
-            <a href="{{asset('profile/'. $user->id) }}">
+            <a href="{{asset('admin/profile/'. $user->id) }}">
               <div class="btn btn-info btn-xs glyphicon glyphicon-edit"></div>
             </a>
             <div class="btn-delete btn btn-danger btn-xs glyphicon glyphicon-remove"></div>

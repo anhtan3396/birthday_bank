@@ -5,14 +5,14 @@
 @section('content')
 
  <div class="main-content">
-  
+
   <div class="content-dashboard">
     <!-- /.col -->
     <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
         <span class="info-box-icon bg-yellow"><i class="fa fa-users" aria-hidden="true"></i></span>
         <div class="info-box-content">
-          <a href="{{ asset('users') }}">
+          <a href="{{ asset('admin/users') }}">
            <span class="info-box-text">Người dùng</span>
           </a>
           <span class="info-box-number">{{ $totalUsers }}</span>
@@ -26,8 +26,8 @@
       <div class="info-box">
         <span class="info-box-icon bg-aqua"><i class="fa fa-edit" aria-hidden="true"></i></span>
         <div class="info-box-content">
-        <a href="{{ asset('test') }}">
-          <span class="info-box-text">Bài kiểm tra</span>
+        <a href="{{ asset('admin/quizs') }}">
+          <span class="info-box-text">Kho câu hỏi</span>
         </a>
           <span class="info-box-number">{{ $totalTests }}</span>
         </div>
@@ -36,7 +36,7 @@
       <!-- /.info-box -->
     </div>
     <!-- /.col -->
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    {{-- <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
         <span class="info-box-icon bg-red"><i class="fa fa-newspaper-o"></i></span>
         <div class="info-box-content">
@@ -48,9 +48,9 @@
         <!-- /.info-box-content -->
       </div>
       <!-- /.info-box -->
-    </div>
+    </div> --}}
     <!-- /.col -->
-    <div class="col-md-3 col-sm-6 col-xs-12">
+    {{-- <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
         <span class="info-box-icon bg-green"><i class="fa fa-video-camera" aria-hidden="true"></i></span>
         <div class="info-box-content">
@@ -63,24 +63,24 @@
       </div>
       <!-- /.info-box -->
     </div>
-    
+     --}}
   </div>
-  
+
 </div>
 <script>
   /*$(function () {
-    
+
     'use strict';
 
     // -----------------------
     // - MONTHLY SALES CHART -
     // -----------------------
-    
+
     // Get context with jQuery - using jQuery's .get() method.
     var statisticsChartCanvas = $('#statisticsChart').get(0).getContext('2d');
     // This will get the first returned node in the jQuery collection.
     var statisticsChart       = new Chart(statisticsChartCanvas);
-    
+
     var statisticsChartData = {
       labels  : ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
       datasets: [
@@ -106,7 +106,7 @@
       }
       ]
     };
-    
+
     var statisticsChartOptions = {
       // Boolean - If we should show the scale at all
       showScale               : true,
@@ -145,10 +145,10 @@
       // Boolean - whether to make the chart responsive to window resizing
       responsive              : true
     };
-    
+
     // Create the line chart
     statisticsChart.Line(statisticsChartData, statisticsChartOptions);
-    
+
     // ---------------------------
     // - END MONTHLY SALES CHART -
     // ---------------------------
