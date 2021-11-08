@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use Carbon\Carbon;
+use App\Models\MUser;
 use Illuminate\Support\Facades\Session;
 
 class SessionManager extends Session
@@ -21,7 +22,8 @@ class SessionManager extends Session
     }
     
     public static function isAdmin() {
-        $loginUserInfo = SessionManager::getLoginInfo();
+        $info = SessionManager::getLoginInfo();
+        $loginUserInfo = MUser::findOrFail($info->id);
         $isAdmin = false;
         if($loginUserInfo != null && ($loginUserInfo->user_role == 1)) {
             $isAdmin = true;

@@ -1,11 +1,13 @@
 @extends('Backend.masterpage.masterpage')
 @section('titleForm')
-        <h4>Trang chủ</h4>
+<h4>Trang chủ</h4>
 @endsection
 @section('content')
 
- <div class="main-content">
-
+<div class="main-content">
+  @if (session('success'))
+  <div class="alert alert-success">{{session('success')}}</div>
+  @endif
   <div class="content-dashboard">
     <!-- /.col -->
     <div class="col-md-3 col-sm-6 col-xs-12">
@@ -13,7 +15,7 @@
         <span class="info-box-icon bg-yellow"><i class="fa fa-users" aria-hidden="true"></i></span>
         <div class="info-box-content">
           <a href="{{ asset('admin/users') }}">
-           <span class="info-box-text">Người dùng</span>
+            <span class="info-box-text">Người dùng</span>
           </a>
           <span class="info-box-number">{{ $totalUsers }}</span>
         </div>
@@ -26,9 +28,9 @@
       <div class="info-box">
         <span class="info-box-icon bg-aqua"><i class="fa fa-edit" aria-hidden="true"></i></span>
         <div class="info-box-content">
-        <a href="{{ asset('admin/quizs') }}">
-          <span class="info-box-text">Kho câu hỏi</span>
-        </a>
+          <a href="{{ asset('admin/quizs') }}">
+            <span class="info-box-text">Kho câu hỏi</span>
+          </a>
           <span class="info-box-number">{{ $totalTests }}</span>
         </div>
         <!-- /.info-box-content -->
@@ -40,9 +42,9 @@
       <div class="info-box">
         <span class="info-box-icon bg-red"><i class="fa fa-newspaper-o"></i></span>
         <div class="info-box-content">
-        <a href="{{ asset('bunpos') }}">
-          <span class="info-box-text">Từ Vựng</span>
-        </a>
+          <a href="{{ asset('bunpos') }}">
+            <span class="info-box-text">Từ Vựng</span>
+          </a>
           <span class="info-box-number">{{ $totalBunpos }}</span>
         </div>
         <!-- /.info-box-content -->
@@ -54,16 +56,16 @@
       <div class="info-box">
         <span class="info-box-icon bg-green"><i class="fa fa-video-camera" aria-hidden="true"></i></span>
         <div class="info-box-content">
-        <a href="{{ asset('videos') }}">
-          <span class="info-box-text">Video</span>
-        </a>
+          <a href="{{ asset('videos') }}">
+            <span class="info-box-text">Video</span>
+          </a>
           <span class="info-box-number">{{$totalVideos}}</span>
         </div>
         <!-- /.info-box-content -->
       </div>
       <!-- /.info-box -->
     </div>
-     --}}
+    --}}
   </div>
 
 </div>

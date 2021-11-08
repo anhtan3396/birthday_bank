@@ -103,4 +103,52 @@ class BackendController extends Controller
         return redirect()->route('admin_login');
     }
 
+    public function setPass()
+    {
+      $info = SessionManager::getLoginInfo();
+      $loginUserInfo = MUser::findOrFail($info->id);
+      if($loginUserInfo){
+        if($loginUserInfo->reset_pass)
+        {
+          return redirect()->route('dashboard');
+        }
+        return view('Backend.reset_pass');
+      }else{
+        return redirect()->route('admin_login');
+      }
+    }
+
+    
+    public function setPassPost(Request $request, UserRepository $userRepository)
+    {
+      $info = SessionManager::getLoginInfo();
+      $sessionLogin = MUser::findOrFail($info->id);
+      if($sessionLogin->reset_pass)
+      {
+        return redirect()->route('dashboard');
+      }
+      $validator = Validator::make($request->all(), [
+        'password'                => 'required|min:6|confirmed'
+        ],
+        [
+          'password.confirmed'         => 'Nhập lại mật khẩu không đúng',
+          'password.min'               => 'Mật khẩu có ít nhất 6 ký tự' 
+        ]);
+
+      if ($validator->fails())
+      {
+        return redirect()->back()->withErrors($validator)->withInput();
+      }
+      $userRepository->update(
+        [
+          "password"        => Hash::make($request->get('password')),
+          "reset_pass"      => 1
+        ],
+          $sessionLogin->id,
+          "id"
+      );
+      $user = MUser::findOrFail($sessionLogin->id);
+      SessionManager::setLoginInfo($user);
+      return redirect()->route('dashboard')->with(['success' => 'Cập nhật mật khẩu thành công']);
+    }
 }

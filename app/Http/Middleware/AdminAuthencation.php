@@ -10,13 +10,13 @@ class AdminAuthencation
 {
     public function handle($request, Closure $next)
     {
-        if (SessionManager::isAdmin())
-        {
-            return $next($request);
-        }
-        else
-        {
-            return redirect('login');
-        }
+      if (SessionManager::isAdmin())
+      {
+          return $next($request);
+      }
+      else
+      {
+        return redirect()->route('admin_login');
+      }
     }
 }
