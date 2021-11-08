@@ -1,233 +1,232 @@
 .type-login .cover-bg,
 .type-login .cover-bg:after {
-  top: 0;
-  width: 100%;
-  height: 100%;
-  left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
 }
 .type-login .cover-bg {
-  background: url(../image/bg.jpg) 50% 50% no-repeat;
-  background-size: cover;
-  z-index: -10;
-  position: fixed;
+    background: url(../image/bg.jpg) 50% 50% no-repeat;
+    background-size: cover;
+    z-index: -10;
+    position: fixed;
 }
 .type-login .cover-bg-pass {
-  background: url(../image/bg-password.jpg) 50% 50% no-repeat;
-  background-size: cover;
-  z-index: -10;
-  position: fixed;
+    background: url(../image/bg-password.jpg) 50% 50% no-repeat;
+    background-size: cover;
+    z-index: -10;
+    position: fixed;
 }
 .type-login .cover-bg-reset {
-  background: url(../image/bg-reset-password.jpg) 50% 50% no-repeat;
-  background-size: cover;
-  z-index: -10;
-  position: fixed;
+    background: url(../image/bg-reset-password.jpg) 50% 50% no-repeat;
+    background-size: cover;
+    z-index: -10;
+    position: fixed;
 }
-.type-login .cover-bg-error{
-  background: url(../image/404_page.jpg) 50% 50% no-repeat;
-  background-size: cover;
-  z-index: -10;
-  position: fixed;
+.type-login .cover-bg-error {
+    background: url(../image/404_page.jpg) 50% 50% no-repeat;
+    background-size: cover;
+    z-index: -10;
+    position: fixed;
 }
 .type-login .cover-bg:after {
-  content: "";
-  position: absolute;
-  display: block;
-  background: rgba(81,83,94,0.65);
+    content: "";
+    position: absolute;
+    display: block;
+    background: rgba(81, 83, 94, 0.65);
 }
 .type-login .logo {
-  display: block;
-  margin-top: 100px;
-  text-align: center;
+    display: block;
+    margin-top: 100px;
+    text-align: center;
 }
 .type-login .logo img {
-  width: 150px;
-  display: inline-block;
+    width: 150px;
+    display: inline-block;
 }
 .type-login .account-container {
-  width: 440px;
-  display: block;
-  margin: 0 auto;
-  padding-top: 40px;
+    width: 440px;
+    display: block;
+    margin: 0 auto;
+    padding-top: 40px;
 }
 .type-login .account-container h1 {
-  text-align: center;
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 30px;
-  font-weight: 400;
-  line-height: 24px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 30px;
+    line-height: 42px;
+    text-transform: uppercase;
 }
 .type-login .account-container .form-group {
-  background: #fff;
-  border-radius: 2px;
-  overflow: hidden;
+    background: #fff;
+    border-radius: 2px;
+    overflow: hidden;
 }
 .type-login .account-container .form-control {
-  border: 0;
-  font-size: 14px;
-  display: block;
-  width: 100%;
-  margin: 15px;
-  box-shadow: none !important;
-  padding: 0;
-  height: auto;
+    border: 0;
+    font-size: 14px;
+    display: block;
+    width: 100%;
+    margin: 15px;
+    box-shadow: none !important;
+    padding: 0;
+    height: auto;
 }
 .type-login .account-container .form-control:focus {
-  box-shadow: none;
+    box-shadow: none;
 }
 .type-login .account-container .submit-button {
-  width: 100%;
-  display: block;
-  color: #fff;
-  font-size: 14px;
-  border-radius: 2px;
-  padding: 16px 0;
-  margin-top: 14px;
-  border: none;
-  outline: none;
-  background: #e5397e;
+    width: 100%;
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 2px;
+    padding: 16px 0;
+    margin-top: 14px;
+    border: none;
+    outline: none;
+    background: #103784;
 }
 .type-login .account-container .submit-button:hover {
-  background: #103784;
+    background: #103784;
 }
 .type-login hr {
-  height: 1px;
-  color: #DFDFDF;
-  margin-bottom: 0;
-  margin-top: 15px;
+    height: 1px;
+    color: #dfdfdf;
+    margin-bottom: 0;
+    margin-top: 15px;
 }
 .type-login .extra-login-options {
-  margin-top: 25px;
+    margin-top: 25px;
 }
 .type-login .extra-login-options a {
-  color: #fff;
-  font-size: 14px;
-  text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
 }
 .type-login .extra-login-options a:hover,
 .type-login .extra-login-options label:hover {
-  color: #DFDFDF;
+    color: #dfdfdf;
 }
 .type-login .extra-login-options label {
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
 }
 .type-login input:focus {
-  outline: none;
+    outline: none;
 }
 .type-login .pull-right {
-  margin-top: 5px;
+    margin-top: 5px;
 }
 .type-login .checkbox {
-  vertical-align: -1px;
-  margin-right: 10px;
-  display: inline-block;
-  cursor: pointer;
-  padding: 0;
-  margin-left: 0;
-  margin-top: 0;
+    vertical-align: -1px;
+    margin-right: 10px;
+    display: inline-block;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 0;
+    margin-top: 0;
 }
 .type-login .checkbox label {
-  position: relative;
+    position: relative;
 }
 .type-login .checkbox input {
-  display: none;
-  -webkit-appearance: none;
+    display: none;
+    -webkit-appearance: none;
 }
 .type-login .checkbox.white label {
-  border-color: #fff;
+    border-color: #fff;
 }
 .type-login .checkbox label {
-  border: 1px solid;
-  width: 14px;
-  height: 14px;
-  display: inline-block;
-  border-radius: 1px;
-  background: 0 0;
-  left: 1px;
-  top: 1px;
+    border: 1px solid;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    border-radius: 1px;
+    background: 0 0;
+    left: 1px;
+    top: 1px;
 }
-.type-login .checkbox.white input:checked+.box:after {
-  background: #fff;
+.type-login .checkbox.white input:checked + .box:after {
+    background: #fff;
 }
 .type-login .checkbox label.box:after {
-  content: "";
-  transition: background-color .2s ease;
-  display: inline-block;
-  position: absolute;
-  left: 1px;
-  top: 1px;
-  border-radius: 1px;
-  width: 18px;
-  height: 16px;
+    content: "";
+    transition: background-color 0.2s ease;
+    display: inline-block;
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    border-radius: 1px;
+    width: 18px;
+    height: 16px;
 }
 .type-login .forget-password-page h2 {
-  font-size: 30px;
-  text-align: center;
-  color: #fff;
-  margin-bottom: 30px;
-  line-height: 24px;
+    font-size: 30px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 30px;
+    line-height: 24px;
 }
 .type-login .forget-password-page .submit {
-  float: right;
-  width: 20%;
-  display: block;
-  color: #fff;
-  font-size: 14px;
-  border-radius: 4px;
-  padding: 8px 0;
-  margin-top: 5px;
-  border: none;
-  outline: none;
-  background: #e5397e;
+    float: right;
+    width: 20%;
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+    padding: 8px 0;
+    margin-top: 5px;
+    border: none;
+    outline: none;
+    background: #e5397e;
 }
 .type-login .forget-password-page .submit:hover {
-  background: #103784;
+    background: #103784;
 }
 .type-login .panel {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 .type-login .mainbox .panel-body {
-  background: #e0eef9;
-  padding: 0 0 15px 0;
-  text-align: center;
+    background: #e0eef9;
+    padding: 0 0 15px 0;
+    text-align: center;
 }
 .type-login .mainbox .form-horizontal {
-  margin: 0;
+    margin: 0;
 }
 .type-login .mainbox .form-horizontal .submit {
-  margin-right: 15px;
+    margin-right: 15px;
 }
-.type-login .panel-info>.panel-heading {
-  color: #fff;
-  background-color: #103784;
-  border-color: #e5397e;
+.type-login .panel-info > .panel-heading {
+    color: #fff;
+    background-color: #103784;
+    border-color: #e5397e;
 }
 .type-login .form-control:focus {
-  border-color: #e5397e;
-  box-shadow: none;
+    border-color: #e5397e;
+    box-shadow: none;
 }
 @media (min-width: 768px) {
-  .type-login .logo {
-    margin-top: 100px;
-  }
+    .type-login .logo {
+        margin-top: 100px;
+    }
 }
 @media (max-width: 768px) {
-  .type-login .logo {
-    width: 100%;
-    text-align: center;
-  }
+    .type-login .logo {
+        width: 100%;
+        text-align: center;
+    }
 }
 @media (max-width: 480px) {
-  .type-login {
-    margin: 0 10px;
-  }
-  .type-login .account-container {
-    width: 100%;
-  }
-  .type-login .account-container h1 {
-    font-size: 14px;
-  }
+    .type-login {
+        margin: 0 10px;
+    }
+    .type-login .account-container {
+        width: 100%;
+    }
+    .type-login .account-container h1 {
+        font-size: 14px;
+    }
 }

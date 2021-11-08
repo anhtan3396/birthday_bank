@@ -11,11 +11,11 @@ Route::group(['prefix' => '/admin'], function () {
         //dashboard
         Route::get('/', ['as' => 'dashboard', 'uses' => 'Backend\BackendController@index']);
         //user
-        Route::get('/profile/{id}', ['as' => 'profile', 'uses' => 'Backend\UserController@profilePage']);
-        Route::get('/users/add', ['as' => 'add', 'uses' => 'Backend\UserController@createUser']);
+        Route::get('/profile/{id}',[ 'as' => 'user.profile', 'uses' => 'Backend\UserController@profilePage']);
+        Route::get('/users/add',['as' => 'user.add','uses'=> 'Backend\UserController@createUser']);
         Route::post('/users/add', 'Backend\UserController@create');
-        Route::get('/users', ['as' => 'users', 'uses' => 'Backend\UserController@users']);
-        Route::get('/users/edit/{id}', ['as' => 'edit', 'uses' => 'Backend\UserController@editForm']);
+        Route::get('/users',['as' => 'users','uses'=> 'Backend\UserController@users']);
+        Route::get('/users/edit/{id}', ['as' => 'user.edit', 'uses' => 'Backend\UserController@editForm']);
         Route::post('/users/edit/{id}', 'Backend\UserController@update');
         Route::get('/users/delete/{id}', 'Backend\UserController@destroy');
         //quiz
