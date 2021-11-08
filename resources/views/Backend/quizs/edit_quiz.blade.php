@@ -9,7 +9,7 @@
 @section('titleForm')
     <h4>Chỉnh sửa câu hỏi</h4>
 @endsection
-@section('content') 
+@section('content')
 
 <div class="bg-form">
             <!-- Form danh sách câu hỏi -->
@@ -25,7 +25,7 @@
                                 <option value="{{$level->s_value}}" {{ $level->s_value==$quiz->level_id ? 'selected' : '' }} @if (old('levels') == $level->s_value) selected @endif >{{ $level->s_name}}</option>
                             @endforeach
                             </select>
-                            
+
                             @if ($errors->has('levels'))
                                 <span class="help-block">
                                         <strong style="color: red;">{{ $errors->first('levels') }}</strong>
@@ -42,11 +42,11 @@
                             <select id="comparison" name="types" class="form-control">
                             @foreach($types as $type)
                                 <option value="{{ $type->s_value }}" {{ $type->s_value == $quiz->quiz_type ? 'selected' : '' }} @if (old('types') == $type->s_value) selected @endif>{{ $type->s_name }}</option>
-                            @endforeach  
+                            @endforeach
                             </select>
                              @if ($errors->has('types'))
                                 <span class="help-block">
-                                        <strong style="color: red;">{{ $errors->first('types') }}</strong> 
+                                        <strong style="color: red;">{{ $errors->first('types') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -59,7 +59,7 @@
                         <div class="col-md-4">
                             <label class="radio-inline" for="reqType-0">
                             @foreach($groups as $group)
-                                 <input type="radio" name="group"  id="{{ $group->s_value }}" value="{{ $group->s_value }}" {{ $group->s_value == $quiz->quiz_kbn ? 'checked' : '' }} > <label for="{{ $group->s_value }}"><span></span>{{ $group->s_name }}</label> 
+                                 <input type="radio" name="group"  id="{{ $group->s_value }}" value="{{ $group->s_value }}" {{ $group->s_value == $quiz->quiz_kbn ? 'checked' : '' }} > <label for="{{ $group->s_value }}"><span></span>{{ $group->s_name }}</label>
                             @endforeach
                              @if ($errors->has('group'))
                                 <span class="help-block">
@@ -138,7 +138,7 @@
                                         };
                                     </script>
                                     <input type="file" onchange="loadFile(event)" name="image" class="form-control" multiple="">
-                                    
+
                                 </div>
                             @if ($errors->has('image'))
                                 <span class="help-block">
@@ -148,7 +148,7 @@
                             </div>
                     </div>
                  @endif
-                    <hr>                 
+                    <hr>
                     <!-- /End Hình ảnh -->
                     <!-- Âm thanh -->
                     @if($quiz->sound != null)
@@ -161,14 +161,14 @@
                                     <source src="{{ URL::asset('upload/audio/quiz/'. $quiz->sound) }}" type="audio/mp3">
                                 </audio>
                                 <br></br>
-                                
+
                                 <script>
                                     function fileSelected(filelist){
                                         document.getElementById("audiosource").src = URL.createObjectURL(filelist.files[0]);
                                         document.getElementById('delete_old_sound').style.display = "none";
                                     }
                                 </script>
-                                
+
                             </div>
                         </div>
                         <div class="ckbox col-md-4" id="delete_old_sound">
@@ -205,15 +205,15 @@
                             <!-- load audio when choose -->
                             <audio controls id="audiosource" style="display:none; width: 100%">
                                 <source type="audio/mp3"  />
-                            </audio> 
+                            </audio>
                             @if ($errors->has('sound'))
                                 <span class="help-block">
                                     <strong style="color: red;">{{ $errors->first('sound') }}</strong>
                                 </span>
-                            @endif  
+                            @endif
                         </div>
                   </div>
-                @endif  
+                @endif
                     <hr>
                     <!-- /End Âm thanh -->
                     <!-- Câu lựa chọn -->
@@ -261,13 +261,13 @@
                         </span>
                      </div>
                      <div class="col-md-4 col-sm-4 col-xs-4 answer">
-                        <input type="radio" id="radio4" name="rightAns" value="1" {{ $quiz->right_ans == 1 ? 'checked' : '' }}> 
+                        <input type="radio" id="radio4" name="rightAns" value="1" {{ $quiz->right_ans == 1 ? 'checked' : '' }}>
                         <label for="radio4"><span></span></label>
-                        <input type="radio" id="radio5" name="rightAns" value="2" {{ $quiz->right_ans == 2 ? 'checked' : '' }}> 
+                        <input type="radio" id="radio5" name="rightAns" value="2" {{ $quiz->right_ans == 2 ? 'checked' : '' }}>
                         <label for="radio5"><span></span></label>
-                        <input type="radio" id="radio6" name="rightAns" value="3" {{ $quiz->right_ans == 3 ? 'checked' : '' }}> 
+                        <input type="radio" id="radio6" name="rightAns" value="3" {{ $quiz->right_ans == 3 ? 'checked' : '' }}>
                         <label for="radio6"><span></span></label>
-                        <input type="radio" id="radio7" name="rightAns" value="4" {{ $quiz->right_ans == 4 ? 'checked' : '' }}> 
+                        <input type="radio" id="radio7" name="rightAns" value="4" {{ $quiz->right_ans == 4 ? 'checked' : '' }}>
                         <label for="radio7"><span></span></label>
                      </div>
                   </div>
@@ -283,7 +283,7 @@
                                         <strong style="color: red;">{{ $errors->first('content') }}</strong>
                                 </span>
                             @endif
-                        </div>  
+                        </div>
                     </div>
                     <hr>
                     <!-- /End Giải thích -->
@@ -293,7 +293,7 @@
                     <div class="form-group">
                         <!-- Button -->
                         <div class="control-button">
-                            <a href="{{ asset('quizs') }}" class="btn btn-primary">
+                            <a href="{{ asset('admin/quizs') }}" class="btn btn-primary">
                                 <span class="glyphicon glyphicon-arrow-left"></span>Quay lại
                             </a>
                             <button id="submitButton" name="submitButton" class="btn btn-success">
@@ -301,7 +301,7 @@
                         </div>
                         <!-- /End Button -->
                     </div>
-                </div>   
+                </div>
                 <!-- /End Button -->
             </form>
             <!--/End Form danh sách câu hỏi -->

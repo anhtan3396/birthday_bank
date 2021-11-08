@@ -1,8 +1,7 @@
 
 <footer class="main-footer">
    <div class="footer">
-      <strong>Copyright © 2017 <a href="#">ThaoTokyo</a>.</strong> All rights
-      reserved.
+
    </div>
 </footer>
 

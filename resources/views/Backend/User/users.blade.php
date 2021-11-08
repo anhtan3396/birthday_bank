@@ -47,7 +47,7 @@ $setting = new MSetting();
           <button id="searchButton" name="searchButton" class="btn btn-search pull-right">
             <span class="glyphicon glyphicon-search"></span>Tìm kiếm
           </button>
-          <a href="{{ asset('users') }}" class="btn btn-primary"><span
+          <a href="{{ asset('admin/users') }}" class="btn btn-primary"><span
               class="glyphicon glyphicon-refresh"></span>Reset</a>
         </div>
         <!-- /End Button -->

@@ -1,5 +1,5 @@
 .header {
-  background: #ea5e97;
+  background: #103784;
   border: none;
   height: auto;
   font-size: 13px;
@@ -8,7 +8,7 @@
 .header .nav_title {
   border-radius: 0;
   position: absolute;
-  background-color: #ea5e97 !important;
+  background-color: #103784 !important;
   width: 230px;
   height: 60px;
 }
@@ -44,8 +44,8 @@
 }
 .header .top_nav .nav_menu {
   float: left;
-  background: #ffA1ba;
-  border-bottom: 1px solid #ea5e97;
+  background: #20A5D5;
+  border-bottom: 1px solid #103784;
   width: 100%;
   position: relative;
 }
@@ -108,7 +108,7 @@
   width: 100%;
 }
 .nav-md {
-  background: #37474f;
+  background: #20A5D5;
 }
 .nav-md .left_col {
   width: 230px;
@@ -119,7 +119,7 @@
   padding-left: 15px;
 }
 .nav-sm {
-  background: #37474f;
+  background: #20A5D5;
 }
 .nav-sm .left_col {
   width: 70px;
@@ -175,7 +175,7 @@
 }
 .left_col .scroll-view {
   width: 100%;
-  background: #37474f;
+  background: #20A5D5;
 }
 .left_col .scroll-view .navbar {
   margin-bottom: 0;
@@ -213,7 +213,7 @@
 }
 .left_col .scroll-view .main_menu {
   padding: 0;
-  background: #37474f;
+  background: #20A5D5;
 }
 .left_col .scroll-view .main_menu .menu_section h3 {
   padding-left: 15px;
@@ -233,19 +233,19 @@
   background-color: transparent !important;
   border: none !important;
   border-radius: 0;
-  border-bottom: 1px solid #263238 !important;
+  border-bottom: 1px solid #103784 !important;
   margin: 0;
 }
 .left_col .scroll-view .main_menu .menu_section .side-menu li a:hover,
 .left_col .scroll-view .main_menu .menu_section .side-menu li a:focus {
-  border-left-color: #ea5e97;
+  border-left-color: #103784;
   color: #fff;
-  background: #263238;
+  background: #103784;
 }
 .left_col .scroll-view .main_menu .menu_section .side-menu li a.active {
-  border-left-color: #ea5e97;
+  border-left-color: #103784;
   color: #fff;
-  background: #263238;
+  background: #103784;
 }
 .left_col .scroll-view .main_menu .menu_section .side-menu li ul li a.active {
   color: #fff;
@@ -278,7 +278,7 @@
   padding: 5px 0 0;
   position: fixed;
   width: 230px;
-  background: #263238;
+  background: #103784;
   z-index: 100;
 }
 .left_col .scroll-view .sidebar-footer a {
@@ -288,12 +288,12 @@
   display: block;
   float: left;
   color: #fff;
-  background: #37474f;
+  background: #103784;
   cursor: pointer;
   text-decoration: none;
 }
 .left_col .scroll-view .sidebar-footer a:hover {
-  background: #263238;
+  background: #20A5D5;
 }
 .main-footer {
   font-size: 12px;
@@ -305,10 +305,10 @@
   text-align: center;
 }
 .main-footer a {
-  color: #ffA1ba;
+  color: #20A5D5;
 }
 .main-footer a:hover {
-  color: #ea5e97;
+  color: #103784;
 }
 .footer {
   margin-left: 230px !important;
@@ -322,7 +322,7 @@
     margin: 0 !important;
   }
   .nav-sm .left_col .scroll-view .main_menu .menu_section ul {
-    background: #37474f;
+    background: #20A5D5;
     top: -60px;
     position: relative;
   }

@@ -18,19 +18,19 @@ class UserController extends Controller
 
     public function profilePage($id)
     {
-       
+
         $user = MUser::find((int) $id);
         return view('Backend.User.profile',['user' => $user]);
-        
+
     }
 
-    //form create new user 
+    //form create new user
     public function createUser()
     {
          return view('Backend.User.createUser');
     }
-    
-    //form edit user's infor  
+
+    //form edit user's infor
     public function editForm($id)
     {
         $currentLogin = SessionManager::getLoginInfo();
@@ -46,7 +46,7 @@ class UserController extends Controller
         else
         {
             if($currentLogin->user_role == 3 || $user->email == $currentLogin->email)
-            {          
+            {
                 return view('Backend.User.editForm', ['user' => $user]);
             }
             else
@@ -56,8 +56,8 @@ class UserController extends Controller
                 }else
                 {
                     return view('Backend.User.editForm', ['user' => $user]);
-                } 
-            } 
+                }
+            }
         }
     }
 
@@ -82,36 +82,36 @@ class UserController extends Controller
         {
             $search_query->where('nick_name', 'like', '%'.$nick_name.'%');
         }
-        
+
         $users = $userRepository->getAllUsers($search_query);
-        return view('Backend.User.users', ['users' => $users]);   
+        return view('Backend.User.users', ['users' => $users]);
     }
 
-    //create new user 
+    //create new user
     public function create(Request $request, UserRepository $userRepository )
     {
      $validator = Validator::make($request->all(), [
         'avatar'                 => 'sometimes|image|size:4096',
-        'email'                  => 'required|email|unique:m_user,email|regex:/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/',
+        'email'                  => 'required|email|unique:users,email|regex:/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/',
         'phone_num'              => 'required|digits_between:10,15|numeric',
         'nick_name'              => 'required|max:30',
         'password'               => 'required|min:6|regex:/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/|confirmed',
         'remain_coin'            => 'sometimes|digits_between:0,15|numeric',
         ],
-        [ 
+        [
         'email.required'       => 'Vui lòng nhập email ',
         'email.unique'         => 'Email đã tồn tại. Vui lòng nhập email khác',
         'email.email'          => 'Email phải là địa chỉ email hợp lệ',
         'email.regex'          => 'Vui lòng nhập email không chứa những kí hiệu đặc biệt',
-        'avatar.image'         => 'Vui lòng chọn đúng kiểu hình ảnh', 
+        'avatar.image'         => 'Vui lòng chọn đúng kiểu hình ảnh',
         'avatar.size'          => 'Hình ảnh chọn phải nhỏ hơn 4MB',
         'avatar.uploaded'      => 'Vui lòng chọn đúng hình ảnh',
         'password.regex'       => 'Mật khẩu buộc phải có kí tự in hoa, kí tự thường và số',
-        'password.required'    => 'Vui lòng nhập mật khẩu', 
-        'password.min'         => 'Mật khẩu có ít nhất 6 ký tự', 
+        'password.required'    => 'Vui lòng nhập mật khẩu',
+        'password.min'         => 'Mật khẩu có ít nhất 6 ký tự',
         'password.confirmed'   => 'Nhập lại mật khẩu không đúng. Vui lòng nhập lại mật khẩu',
         'remain_coin.numeric'  => 'Vui lòng nhập xu bằng con số',
-        'remain_coin.digits_between'        => 'Vui lòng nhập số xu bằng số. Số xu có tối thiểu 1 số và tối đa 15 số',               
+        'remain_coin.digits_between'        => 'Vui lòng nhập số xu bằng số. Số xu có tối thiểu 1 số và tối đa 15 số',
         'phone_num.required'   => 'Vui lòng nhập số điện thoại',
         'phone_num.numeric'    => 'Vui lòng nhập số điện thoại bằng số',
         'phone_num.digits_between'        => 'Vui lòng nhập số điện thoại bằng số. Số điện thoại có tối thiểu 10 số và tối đa 15 số',
@@ -131,22 +131,16 @@ class UserController extends Controller
         $phone_num   = $request->input('phone_num');
         $nick_name   = $request->input('nick_name');
         $password    = Hash::make($request->input('password'));
-        $login_type  = 1;
-        $remain_coin = $request->input('remain_coin');
-        $user_role   = $request->input('user_role');
 
 
         $user = $userRepository->create(
             [
             "avatar"         =>$imageURL,
-            "login_id"       =>$email, 
-            "email"          =>$email, 
-            "phone_num"      =>$phone_num, 
+            "login_id"       =>$email,
+            "email"          =>$email,
+            "phone_num"      =>$phone_num,
             "nick_name"      =>$nick_name,
-            "password"       =>$password,  
-            "login_type"     =>$login_type,
-            "remain_coin"    =>$remain_coin,
-            "user_role"      =>$user_role,
+            "password"       =>$password,
             ]);
         if ($user->id > 0) {
                 // Edit image
@@ -157,8 +151,8 @@ class UserController extends Controller
                 $imageURL = $user->id . "." . date("H_i_s",time()). ".". $nameImage;
                 if(File::exists(public_path('upload/image/avatar/') . $imageURL))
                 {
-                    unlink(public_path('upload/image/avatar/') . $imageURL);   
-                } 
+                    unlink(public_path('upload/image/avatar/') . $imageURL);
+                }
                 Input::file('avatar')->move(public_path('upload/image/avatar/'), $imageURL);
             }else
             {
@@ -168,10 +162,10 @@ class UserController extends Controller
                 'avatar'     =>  $imageURL,
                 ], $user->id, "id");
 
-            return redirect('users')->with('notify', "Add success!");
+            return redirect('admin/users')->with('notify', "Add success!");
         }
         else {
-            return redirect('users')->with('notify', "Add failed!");
+            return redirect('admin/users')->with('notify', "Add failed!");
         }
 
     }
@@ -179,7 +173,7 @@ class UserController extends Controller
 
 }
 
-    //edit user 
+    //edit user
 public function update(Request $request, $id, UserRepository $userRepository )
 {
     $userRepository->find($id);
@@ -216,8 +210,8 @@ public function update(Request $request, $id, UserRepository $userRepository )
                 $imageURL = $id . "." . date("H_i_s",time()). ".". $nameImage;
                 if(File::exists(public_path('upload/image/avatar/') . $imageURL))
                 {
-                    unlink(public_path('upload/image/avatar/') . $imageURL);   
-                } 
+                    unlink(public_path('upload/image/avatar/') . $imageURL);
+                }
                 Input::file('avatar')->move(public_path('upload/image/avatar/'), $imageURL);
                 $userRepository->update(
                     [
@@ -225,14 +219,14 @@ public function update(Request $request, $id, UserRepository $userRepository )
                     ],
                     $id,
                     "id"
-                    );   
+                    );
             }
             $userRepository->update(
                 [
                 "phone_num" => $request->get('phone_num'),
                 "nick_name" => $request->get('nick_name'),
                 "remain_coin" => $request->get('remain_coin')
-                ], 
+                ],
                 $id,
                 "id"
                 );
@@ -248,8 +242,8 @@ public function update(Request $request, $id, UserRepository $userRepository )
             'remain_coin'       => 'required|digits_between:0,15|numeric',
 
             ],
-            [ 'password.regex'       => 'Mật khẩu phải có kí tự in hoa, kí tự thường và số', 
-            'password.min'         => 'Mật khẩu có ít nhất 6 ký tự', 
+            [ 'password.regex'       => 'Mật khẩu phải có kí tự in hoa, kí tự thường và số',
+            'password.min'         => 'Mật khẩu có ít nhất 6 ký tự',
             'password.confirmed'   => 'Vui lòng nhập lại mật khẩu',
             'phone_num.required'   => 'Số điện thoại không được để trống',
             'phone_num.digits_between'        => 'Số điện thoại có thiểu 10 số và tối đa 15 số',
@@ -270,9 +264,8 @@ public function update(Request $request, $id, UserRepository $userRepository )
                 "password"   =>Hash::make($request->get('password')),
                 "phone_num"  => $request->get('phone_num'),
                 "nick_name"  => $request->get('nick_name'),
-                "login_type" => $request->get('login_type'),
                 "remain_coin" => $request->get('remain_coin'),
-                ], 
+                ],
                 $id,
                 "id"
                 );
@@ -289,7 +282,7 @@ public function destroy($id, UserRepository $userRepository)
     if($currentLogin->user_role == 3){
         $userRepository->update(
             [
-            "deleted_flag"          => 1, 
+            "deleted_flag"          => 1,
             ],
             $id,
             "id"
@@ -304,7 +297,7 @@ public function destroy($id, UserRepository $userRepository)
         {
             $userRepository->update(
                 [
-                "deleted_flag"          => 1, 
+                "deleted_flag"          => 1,
                 ],
                 $id,
                 "id"
