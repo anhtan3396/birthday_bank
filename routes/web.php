@@ -6,8 +6,10 @@ Route::group(['prefix' => '/admin'], function () {
     Route::post('/login', 'Backend\BackendController@login')->name("post_admin_login");
     Route::get('/logout', 'Backend\BackendController@logout')->name("admin_logout");
 
+    Route::get('/set-pass', 'Backend\BackendController@setPass')->name("admin_setpass");
+    Route::post('/set-pass', 'Backend\BackendController@setPassPost')->name("post_admin_setpass");
     //web quản trị
-    Route::group(['middleware' => ['AdminAuthencation']], function () {
+    Route::group(['middleware' => ['AdminAuthencation','CheckActivePass']], function () {
         //dashboard
         Route::get('/', ['as' => 'dashboard', 'uses' => 'Backend\BackendController@index']);
         //user
@@ -41,6 +43,6 @@ Route::group(['prefix' => '/'], function () {
 
     Route::get('/reset-password', 'Frontend\FrontendController@resetPassIndex')->name("guest_reset_pass");
     Route::post('/reset-password', 'Frontend\FrontendController@resetPass')->name("post_guest_reset_pass");
-    Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['auth','CheckActivePass']], function () {
     });
 });

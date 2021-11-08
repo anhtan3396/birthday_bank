@@ -30,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -67,7 +67,7 @@ class LoginController extends Controller
         $userInfo = $userRepository->getByEmailOrLoginId($email);
         // we will check the user info.
         if($userInfo == null) {
-            return redirect("login")->withErrors(['login' => "User doesn't match"])->withInput();
+            return redirect("login")->withErrors(['login' => "Không tìm thấy thông tin người dùng"])->withInput();
         }
         $password = $request->get('password');
         // we will check the password.
@@ -77,6 +77,6 @@ class LoginController extends Controller
             SessionManager::setLoginInfo($userInfo->toArray());
             return redirect('/');                    
         }
-        return redirect("login")->withErrors(['login' => "Username or password doesn't match"])->withInput();
+        return redirect("login")->withErrors(['login' => "Email hoặc mật khẩu không đúng"])->withInput();
 	}
 }

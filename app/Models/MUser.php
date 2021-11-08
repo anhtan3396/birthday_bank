@@ -27,7 +27,8 @@ class MUser extends BaseModel
         'created_at',
         'level',
         'experience',
-        'group_id'
+        'group_id',
+        'reset_pass'
     ];
 
     protected $hidden = ['password'];
