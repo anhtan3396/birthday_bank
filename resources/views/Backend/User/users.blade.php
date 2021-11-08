@@ -1,7 +1,3 @@
-<?php
-use App\Models\MSetting;
-$setting = new MSetting();
-?>
 @extends('Backend.masterpage.masterpage')
 @section('titleForm')
 <h4>Danh sách người dùng</h4>
@@ -11,15 +7,6 @@ $setting = new MSetting();
   <!-- Form danh sách bài test -->
   <form class="form-horizontal">
     <fieldset>
-      <!-- ID -->
-      <div class="form-group">
-        <label class="col-md-4 control-label" for="textinput">Số điện thoại</label>
-        <div class="col-md-6">
-          <input class="form-control" name="phone_num"
-            value="<?= isset ($_GET['phone_num']) ? $_GET['phone_num'] : '' ?>">
-        </div>
-      </div>
-      <!-- /End ID -->
 
       <!-- EMAIL -->
       <div class="form-group">
@@ -73,7 +60,6 @@ $setting = new MSetting();
         <tr>
           <th>ID</th>
           <th>Email</th>
-          <!-- <th>Số điện thoại</th> -->
           <th>Họ và tên</th>
           <th>Điểm kinh nghiệm</th>
           <th>Cấp độ Vie</th>
@@ -83,20 +69,19 @@ $setting = new MSetting();
       </thead>
       <tbody>
         <span class="help-block">
-          <strong style="color: red;">{{ $errors->first('users') }}</strong>
+          <strong style="color: red;">{{ $errors->first('user_del') }}</strong>
         </span>
         @foreach($users as $user)
         <tr user-id="{{ $user->id }}">
           <td>{{ $user->id }}</td>
           <td>{{ $user->email }}</td>
-          <!-- <th>{{ $user->phone_num }}</th> -->
-          <th><a href="{{ route('user.profile',['id' => $user->id]) }}">{{
+          <th><a href="{{ route('user.edit',['id' => $user->id]) }}">{{
               $user->nick_name }}</a></th>
           <th>{{ $user->experience }}</th>
           <th>{{ $user->level }}</th>
           <th>{{ $user->group ? $user->group->name : "~"}}</th>
           <td class="text-center">
-            <a href="{{ route('user.profile',['id' => $user->id]) }}">
+            <a href="{{ route('user.edit',['id' => $user->id]) }}" style="text-decoration: none;">
               <div class="btn btn-info btn-xs glyphicon glyphicon-edit"></div>
             </a>
             <div class="btn-delete btn btn-danger btn-xs glyphicon glyphicon-remove"></div>

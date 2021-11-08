@@ -8,8 +8,7 @@
 
       <div class="nav_title">
         <a href="{{ asset('/') }}" class="site_title">
-          <i><img src="{{ URL::asset('image/logo.png')}}" alt="" width="34" height="36"></i>
-          <span>BANK</span>
+          <span>VIET CAPITAL BANK</span>
         </a>
       </div>
 

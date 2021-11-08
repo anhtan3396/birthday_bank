@@ -17,13 +17,13 @@
         <div class="landing-page">
           <!--LOGO-->
           <div class="logo">
-            <img src="{{ URL::asset('image/logo.png') }}" alt="logo">
+            <!-- <img src="{{ URL::asset('image/logo.png') }}" alt="logo"> -->
           </div>
           <!--/END LOGO-->
 
           <!--FORM LOGIN-->
           <div class="login-page account-container">
-            <h1>Chào mừng bạn đến với trang quản trị App Quiz Japanese</h1>
+            <h1>Chào mừng bạn đến với trang quản trị </h1>
 
             <form action="" method="post">
               {{ csrf_field() }}
