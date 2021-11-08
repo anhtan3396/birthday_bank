@@ -22,13 +22,13 @@ class QuizRepository extends BaseRepository
     }
     
       public function getFromQuiz($data) {
-        $quiz = $this->model->whereIn('quiz_id',$data)->where('deleted_flag',0)->get(['quiz_id','content', 'image', 'sound', 'ans1', 'ans2', 'ans3', 'ans4', 'right_ans', 'right_ans_exp']);
+        $quiz = $this->model->whereIn('id',$data)->where('deleted_flag',0)->get(['id','content', 'image', 'sound', 'ans1', 'ans2', 'ans3', 'ans4', 'right_ans', 'right_ans_exp']);
         return $quiz->toArray();
     }
 
 
-    public function getIdRightAns($array_Quiz_id) {
-        $quiz = $this->model->whereIn('quiz_id',$array_Quiz_id)->where('deleted_flag',0)->get(['quiz_id','right_ans']);
+    public function getIdRightAns($array_id) {
+        $quiz = $this->model->whereIn('id',$array_id)->where('deleted_flag',0)->get(['id','right_ans']);
         return $quiz->toArray();
     }
 //////
