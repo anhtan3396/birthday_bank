@@ -61,7 +61,7 @@ $setting = new MSetting();
 <!-- /End Info search -->
 <!-- Button -->
 <div class="col-md-4 btn-create">
-  <a href="{{ asset ('users/add') }}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>Tạo người
+  <a href="{{ route('user.add') }}" class=" btn btn-success"><span class="glyphicon glyphicon-plus"></span>Tạo người
     dùng mới</a>
 </div>
 <!-- /End Button -->
@@ -90,12 +90,13 @@ $setting = new MSetting();
           <td>{{ $user->id }}</td>
           <td>{{ $user->email }}</td>
           <!-- <th>{{ $user->phone_num }}</th> -->
-          <th><a href="{{asset('profile/'. $user->id) }}">{{ $user->nick_name }}</a></th>
+          <th><a href="{{ route('user.profile',['id' => $user->id]) }}">{{
+              $user->nick_name }}</a></th>
           <th>{{ $user->experience }}</th>
           <th>{{ $user->level }}</th>
           <th>{{ $user->group ? $user->group->name : "~"}}</th>
           <td class="text-center">
-            <a href="{{asset('profile/'. $user->id) }}">
+            <a href="{{ route('user.profile',['id' => $user->id]) }}">
               <div class="btn btn-info btn-xs glyphicon glyphicon-edit"></div>
             </a>
             <div class="btn-delete btn btn-danger btn-xs glyphicon glyphicon-remove"></div>
