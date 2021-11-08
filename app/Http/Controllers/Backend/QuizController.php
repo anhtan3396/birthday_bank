@@ -18,9 +18,7 @@ class QuizController extends Controller
     public function index(Request $request,QuizRepository $quizRepository )
     {
         $textQuiz = $request->input('textinput');
-        $levels = $request->input('levels') ? $request->input('levels'): [];
         $types = $request->input('types')  ? $request->input('types'): [];
-        $groups = $request->input('groups') ? $request->input('groups'): [];
         $search_query = MQuiz::query();
 
         if($textQuiz)
@@ -28,30 +26,18 @@ class QuizController extends Controller
             $search_query->Where('content', 'like', '%'.$textQuiz.'%');
         }
         
-    
-        if(count($levels) > 0)
-        {
-            $search_query->WhereIn('level_id', $levels);   
-        }
-
         if(count($types) > 0)
         {
-            $search_query->WhereIn('quiz_type', $types);   
+            $search_query->WhereIn('level', $types);   
         }
         
-        if(count($groups) > 0)
-        {   
-            $search_query->WhereIn('quiz_kbn', $groups); 
-        }    
-        
-
+        $types = array(['s_name' => "Câu hỏi thường", 's_value'=> 1],['s_name'=> "Câu hỏi đặc biệt", 's_value'=> 2]);
         $quizs = $quizRepository->getAllQuizs($search_query);
         return view("Backend.quizs.list_quizs",[
             'quizs'     => $quizs,
             'textInput' => $textQuiz, 
-            'oldLevels' => $levels,
             'oldTypes'  => $types,
-            'oldGroups' => $groups
+            'types'     => json_decode (json_encode ($types), FALSE)
             ]);
     }
 
@@ -68,39 +54,33 @@ class QuizController extends Controller
             $request->all(), 
             [
                 
-                'levels'    =>'required',
-                'types'     =>'required',
-                'group'     =>'required',
+                'level'    =>'required',
                 'question'  =>'required|max:1000',
                 'ansA'      =>'required|max:255',
                 'ansB'      =>'required|max:255',
-                'ansC'      =>'sometimes|max:255',
+                'ansC'      =>'required|max:255',
                 'ansD'      =>'sometimes|max:255',
                 'rightAns'  =>'required',
                 'content'   =>'sometimes|max:1000',
-                'image'     =>'sometimes|image|max:4096',
-                'sound'     =>'sometimes|max:4096',
+                // 'image'     =>'sometimes|image|max:4096',
             ]
         ,
         [
-                'levels.required'   => 'Vui lòng chọn trình độ cho câu hỏi.',
-                'types.required'    => 'Vui lòng chọn loại cho câu hỏi.',
-                'group.required'    => 'Vui lòng chọn nhóm cho câu hỏi.',
+                'level.required'    => 'Vui lòng chọn loại cho câu hỏi.',
                 'question.required' => 'Vui lòng nhập nội dung câu hỏi.',
                 'question.max'      => 'Câu hỏi tối đa có 1000 ký tự.',
                 'ansA.required'     => 'Vui lòng nhập nội dung câu trả lời.',
                 'ansA.max'          => 'Câu hỏi tối đa có 255 ký tự.',
                 'ansB.required'     => 'Vui lòng nhập nội dung câu trả lời.',
                 'ansB.max'          => 'Câu hỏi tối đa có 255 ký tự.',
+                'ansC.required'     => 'Vui lòng nhập nội dung câu trả lời.',
                 'ansC.max'          => 'Câu hỏi tối đa có 255 ký tự.',
                 'ansD.max'          => 'Câu hỏi tối đa có 255 ký tự.',
                 'rightAns.required' => 'Vui lòng chọn câu trả lời đúng.',
                 'content.max'       => 'Lời giải thích câu trả lời đúng tối đa có 1000 ký tự.',
-                'image.max'         => 'Hình ảnh chọn phải nhỏ hơn 4MB.',
-                'image.image'       => 'Vui lòng chọn hình ảnh cho câu hỏi',
-                'image.uploaded'    => 'Vì vấn đề nào đó mà quá trình upload bị lỗi.',
-                'sound.max'         => 'Âm thanh chọn phải nhỏ hơn 4MB',
-                'sound.uploaded'    => 'Vì vấn đề nào đó mà quá trình upload bị lỗi.',
+                // 'image.max'         => 'Hình ảnh chọn phải nhỏ hơn 4MB.',
+                // 'image.image'       => 'Vui lòng chọn hình ảnh cho câu hỏi',
+                // 'image.uploaded'    => 'Vì vấn đề nào đó mà quá trình upload bị lỗi.',
                
         ]
         );
@@ -109,90 +89,54 @@ class QuizController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         else{
-            $level_id = $request->input('levels');
-            $quiz_type = $request->input('types');
-            $quiz_kbn = $request->input('group');
-            $content  = $request->input('question');
-            $imageURL = "";
-            $soundURL = "";
-            
-            $ans1       = $request->input('ansA');
-            $ans2       = $request->input('ansB');
-            $ans3       = $request->input('ansC');
-            $ans4       = $request->input('ansD');
-            $ans5       = "";
-            $ans6       = "";
-            $right_ans  = $request->input('rightAns');
-            $exp        = $request->input('content');
+          if(($request->get('ansD')== '' && $request->get('rightAns') == 4))
+          {
+              return redirect()->back()->withErrors(['quiz' => "Vui lòng chọn đúng đáp án cho câu hỏi."])->withInput();
+          }
+          $level = $request->input('level');
+          $content  = $request->input('question');
+          $imageURL = "";
+          $ans1       = $request->input('ansA');
+          $ans2       = $request->input('ansB');
+          $ans3       = $request->input('ansC');
+          $ans4       = $request->input('ansD');
+          $right_ans  = $request->input('rightAns');
+          $exp        = $request->input('content');
 
-            //
-            if(($ans3 == '' && $right_ans == 3) || ($ans4 == '' && $right_ans == 4))
-            {
-                return redirect()->back()->withErrors(['quiz' => "Vui lòng chọn đúng đáp án cho câu hỏi."])->withInput();
-            }
-            //
+          $quiz = $quizRepository->create(
+            [
+              "level"         => $level,
+              "content"       => $content,
+              "image"         => $imageURL,
+              "ans1"          => $ans1,
+              "ans2"          => $ans2,
+              "ans3"          => $ans3,
+              "ans4"          => $ans4,
+              "right_ans"     => $right_ans,
+              "right_ans_exp" => $exp
+            ]
+          );
 
-            $quiz = $quizRepository->create(
-                [
-                    "level_id"      => $level_id,
-                    "quiz_type"     => $quiz_type,
-                    "quiz_kbn"      => $quiz_kbn,
-                    "content"       => $content,
-                    "image"         => $imageURL,
-                    "sound"         => $soundURL,
-                    "ans1"          => $ans1,
-                    "ans2"          => $ans2,
-                    "ans3"          => $ans3,
-                    "ans4"          => $ans4,
-                    "ans5"          => $ans5,
-                    "ans6"          => $ans6,
-                    "right_ans"     => $right_ans,
-                    "right_ans_exp" => $exp
-                ]
-            );
-
-            if ($quiz->quiz_id > 0) {
-                // Edit image/sound here.
-
-                if(Input::hasfile('image'))
-                {
-                    //image
-                    $nameImage = Input::file('image')->getClientOriginalExtension();
-                    $imageURL = $quiz->quiz_id . "." . date("H_i_s",time()). ".". $nameImage;
-                    Input::file('image')->move(public_path('upload/image/quiz/'), $imageURL);
-                }else
-                {
-                    $imageURL = "";
-                }
-                if(Input::hasfile('sound'))
-                {
-                    //sound
-                    $nameSound = Input::file('sound')->getClientOriginalExtension();
-                    if($nameSound == 'mp3')
-                    {
-                        $soundURL = $quiz->quiz_id . "." . date("H_i_s",time()). "." . $nameSound;
-                        Input::file('sound')->move(public_path('upload/audio/quiz/'), $soundURL);
-                    }
-                    else
-                    {
-                        return redirect()->back()->withErrors(['sound' => "Vui lòng chọn đúng kiểu âm thanh"])->withInput();
-                    }
-                }else
-                {
-                    $soundURL = "";
-                }
-
-                // Update
-                $quizRepository->update([
-                    'image'     =>  $imageURL,
-                    'sound'     =>  $soundURL
-                ], $quiz->quiz_id, "quiz_id");
-
-                return redirect('quizs')->with('notify', "Thêm thành công!");
-            }
-            else {
-                return redirect('quizs')->with('notify', "Thêm thất bại!");
-            }
+          if ($quiz->id > 0) {
+            // if(Input::hasfile('image'))
+            // {
+            //   //image
+            //   $nameImage = Input::file('image')->getClientOriginalExtension();
+            //   $imageURL = $quiz->id . "." . date("H_i_s",time()). ".". $nameImage;
+            //   Input::file('image')->move(public_path('upload/image/quiz/'), $imageURL);
+            // }else
+            // {
+            //     $imageURL = "";
+            // }
+            // Update
+            // $quizRepository->update([
+            //     'image'     =>  $imageURL,
+            // ], $quiz->id, "id");
+            return redirect()->route('quizs')->with('notify', "Thêm thành công!");
+          }
+          else {
+            return redirect()->back()->with('notify', "Thêm thất bại!");
+          }
         }
         
     }
@@ -200,20 +144,19 @@ class QuizController extends Controller
     //view update a quiz
     public function editQuizForm($id, QuizRepository $quizRepository)
     {
-        $validator = Validator::make(['quiz_id' => $id], [
-                'quiz_id'   => 'exists:m_quiz,quiz_id'
-            ], [
-                'quiz_id.required'      => 'Không tồn tại câu hỏi',
-            ]);
-
+        $validator = Validator::make(['id' => $id], [
+            'id'   => 'exists:quizs,id'
+          ], [
+              'id.required'      => 'Không tồn tại câu hỏi',
+          ]);
         if ($validator->fails())
         {
-            return redirect()->back();
+          return redirect()->back();
         }
         else
         {
-            $quiz = $quizRepository->find((int)$id);
-            return view('Backend.quizs.edit_quiz', ['quiz' => $quiz]);  
+          $quiz = $quizRepository->find((int)$id);
+          return view('Backend.quizs.edit_quiz', ['quiz' => $quiz]);  
         }
     }
 
@@ -222,39 +165,32 @@ class QuizController extends Controller
     {
         $quiz = $quizRepository->find((int)$id);
         $validator = Validator::make($request->all(), [
-            'levels'    =>'required',
-            'types'     =>'required',
-            'group'     =>'required',
+            'level'    =>'required',
             'question'  =>'required|max:1000',
             'ansA'      =>'required|max:255',
             'ansB'      =>'required|max:255',
-            'ansC'      =>'sometimes|max:255',
+            'ansC'      =>'required|max:255',
             'ansD'      =>'sometimes|max:255',
             'rightAns'  =>'required',
             'content'   =>'sometimes|max:1000',
-            'image'     =>'sometimes|image|max:4096',
-            'sound'     =>'sometimes|max:4096',
+            // 'image'     =>'sometimes|image|max:4096',
         ],
         [
-            'levels.required'   => 'Vui lòng chọn trình độ cho câu hỏi.',
-            'types.required'    => 'Vui lòng chọn loại cho câu hỏi.',
-            'group.required'    => 'Vui lòng chọn nhóm cho câu hỏi.',
+            'level.required'    => 'Vui lòng chọn loại cho câu hỏi.',
             'question.required' => 'Vui lòng nhập nội dung câu hỏi.',
             'question.max'      => 'Câu hỏi tối đa có 1000 ký tự.',
             'ansA.required'     => 'Vui lòng nhập nội dung câu trả lời.',
             'ansA.max'          => 'Câu hỏi tối đa có 255 ký tự.',
             'ansB.required'     => 'Vui lòng nhập nội dung câu trả lời.',
-            'ansB.max'          => 'Câu hỏi tối đa có 255 ký tự.',            
+            'ansB.max'          => 'Câu hỏi tối đa có 255 ký tự.',   
+            'ansC.required'     => 'Vui lòng nhập nội dung câu trả lời.',         
             'ansC.max'          => 'Câu hỏi tối đa có 255 ký tự.',
             'ansD.max'          => 'Câu hỏi tối đa có 255 ký tự.',
             'rightAns.required' => 'Vui lòng chọn câu trả lời đúng.',
             'content.max'       => 'Lời giải thích câu trả lời đúng tối đa có 1000 ký tự.',
-            'image.max'         => 'Hình ảnh chọn phải nhỏ hơn 4MB.',
-            'image.image'       => 'Vui lòng chọn hình ảnh cho câu hỏi',
-            'image.uploaded'    => 'Vui lòng chọn đúng kiểu hình ảnh.',
-            'sound.uploaded'    => 'Vui lòng chọn đúng kiểu âm thanh.',
-            'sound.max'         => 'Âm thanh chọn phải nhỏ hơn 4MB',
-            'sound.mimes'       => 'Vui lòng chọn đúng kiểu âm thanh.',
+            // 'image.max'         => 'Hình ảnh chọn phải nhỏ hơn 4MB.',
+            // 'image.image'       => 'Vui lòng chọn hình ảnh cho câu hỏi',
+            // 'image.uploaded'    => 'Vui lòng chọn đúng kiểu hình ảnh.',
 
 
         ]);
@@ -263,125 +199,28 @@ class QuizController extends Controller
         {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        else
-        {   
-            //if check delete image 
-            if($request->input('delete_image'))
-            {
-                // find quiz by id
-                $imageURL = $quiz->image;
-                //unlink image in folder image
-                if(File::exists(public_path('upload/image/quiz/') . $imageURL))
-                {
-                    unlink(public_path('upload/image/quiz/') . $imageURL);   
-                } 
-                // update url of image in database 
-                $quizRepository->update(
-                    [
-                        "image"          => "",
-                    ],
-                    $id,
-                    "quiz_id"
-                ); 
-            }
-
-            // if check detele sound
-            if($request->input('delete_sound'))
-            {
-                //find quiz by id
-                $soundURL = $quiz->sound;
-                //unlink sound in folder auido
-                if(File::exists(public_path('upload/audio/quiz/') . $soundURL))
-                {
-                    unlink(public_path('upload/audio/quiz/').$soundURL);   
-                }
-                //update usl of sound in db
-                $quizRepository->update(
-                    [
-                        "sound"          => "",
-                    ],
-                    $id,
-                    "quiz_id"
-                ); 
-            }
-            //if choose new image for quiz
-            if (Input::hasfile('image'))
-            {
-                $nameImage = Input::file('image')->getClientOriginalExtension();
-                $imageURL = $id . "." . date("H_i_s",time()). ".". $nameImage;
-                $oldImage = $quiz->image;
-                if($oldImage != '')
-                {
-                    if(File::exists(public_path('upload/image/quiz/') . $oldImage))
-                    {
-                        unlink(public_path('upload/image/quiz/') . $oldImage);   
-                    } 
-                }
-                Input::file('image')->move(public_path('upload/image/quiz/'), $imageURL);
-                
-                $quizRepository->update(
-                    [
-                        "image"          => $imageURL,
-                    ],
-                    $id,
-                    "quiz_id"
-                );   
-            }
-            //if choose new sound for quiz 
-            if(Input::hasfile('sound'))
-            {
-                //sound
-                $nameSound = Input::file('sound')->getClientOriginalExtension();
-                $oldSound = $quiz->sound;
-                if($nameSound == 'mp3')
-                {
-                    $soundURL = $id . "." . date("H_i_s",time()). ".". $nameSound;
-                    if($oldSound != '')
-                    {
-                        if(File::exists(public_path('upload/audio/quiz/') . $oldSound))
-                        {
-                            unlink(public_path('upload/audio/quiz/').$oldSound);   
-                        }
-                    }
-                    Input::file('sound')->move(public_path('upload/audio/quiz/'), $soundURL);
-                    $quizRepository->update(
-                        [
-                            "sound"          =>$soundURL,
-                        ],
-                        $id,
-                        "quiz_id"
-                    );
-                }else
-                {
-                    return redirect()->back()->withErrors("Vui lòng chọn đúng kiểu âm thanh")->withInput();                    
-                }
-                
-                
-            }
-            //
-            if(($request->get('ansC') == '' && $request->get('rightAns') == 3) || ($request->get('ansD')== '' && $request->get('rightAns') == 4))
-            {
-                return redirect()->back()->withErrors(['quiz' => "Vui lòng chọn đúng đáp án cho câu hỏi."])->withInput();
-            }
-            //
-            //update quiz
-            $quizRepository->update(
-                [
-                    "level_id"          =>$request->get('levels'),
-                    "quiz_type"         =>$request->get('types'),
-                    "quiz_kbn"          =>$request->get('group'),
-                    "content"           =>$request->get('question'),
-                    "ans1"              =>$request->get('ansA'),
-                    "ans2"              =>$request->get('ansB'),
-                    "ans3"              =>$request->get('ansC'),
-                    "ans4"              =>$request->get('ansD'),
-                    "right_ans"         =>$request->get('rightAns'),
-                    "right_ans_exp"     =>$request->get('content')
-                ],
-                $id,
-                "quiz_id"
-            );
-            return redirect('quizs');
+        else{
+          if(($request->get('ansD')== '' && $request->get('rightAns') == 4))
+          {
+              return redirect()->back()->withErrors(['quiz' => "Vui lòng chọn đúng đáp án cho câu hỏi."])->withInput();
+          }
+          //
+          //update quiz
+          $quizRepository->update(
+              [
+                  "level"             =>$request->get('level'),
+                  "content"           =>$request->get('question'),
+                  "ans1"              =>$request->get('ansA'),
+                  "ans2"              =>$request->get('ansB'),
+                  "ans3"              =>$request->get('ansC'),
+                  "ans4"              =>$request->get('ansD'),
+                  "right_ans"         =>$request->get('rightAns'),
+                  "right_ans_exp"     =>$request->get('content')
+              ],
+              $id,
+              "id"
+          );
+          return redirect()->route('quizs');
         }
     
     }
@@ -389,35 +228,45 @@ class QuizController extends Controller
     //detail a quiz
     public function detailQuiz($id, QuizRepository $quizRepository)
     {
-        $validator = Validator::make(['quiz_id' => $id], [
-                'quiz_id'   => 'exists:m_quiz,quiz_id'
-            ], [
-                'quiz_id.require'   =>'Không tồn tại câu hỏi',
-            ]);
+        $validator = Validator::make(['id' => $id], [
+            'id'   => 'exists:quizs,id'
+        ], [
+            'id.require'   =>'Không tồn tại câu hỏi',
+        ]);
 
         if ($validator->fails())
         {
-            return redirect()->back();
+          return redirect()->back();
         }
         else
         {
-            $quiz = $quizRepository->find((int)$id);
-            return view('Backend.quizs.detail_quiz', ['quiz' => $quiz]);  
+          $quiz = $quizRepository->find((int)$id);
+          return view('Backend.quizs.detail_quiz', ['quiz' => $quiz]);  
         }
     }
     
     //destroy a quiz
     public function destroyQuiz($id, QuizRepository $quizRepository)
     {
-        //update delete_flag
-        $quizRepository->update(
-            [
-                "deleted_flag"          => 1, 
-            ],
-            $id,
-            "quiz_id"
-        );
+      $validator = Validator::make(['id' => $id], [
+      'id'   => 'exists:quizs,id'
+      ], [
+          'id.require'   =>'Không tồn tại câu hỏi',
+      ]);
+
+      if ($validator->fails())
+      {
         return redirect()->back();
+      }
+      //update delete_flag
+      $quizRepository->update(
+        [
+            "deleted_flag"          => 1, 
+        ],
+        $id,
+        "id"
+      );
+      return redirect()->back();
     }
 
     //delete multi quiz
@@ -426,15 +275,14 @@ class QuizController extends Controller
         //get list quiz choosed 
         $list_id = $rq->get('list_id');
         foreach ($list_id as $id) {
-            //update delete_flag
-            $quizRepository->update(
-                [
-                    "deleted_flag"          => 1,
-                    
-                ],
-                $id,
-                "quiz_id"
-            );
+          //update delete_flag
+          $quizRepository->update(
+            [
+                "deleted_flag"          => 1,
+            ],
+            $id,
+            "id"
+          );
         }
         return redirect()->back();
     }

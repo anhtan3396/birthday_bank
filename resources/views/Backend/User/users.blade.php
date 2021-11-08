@@ -40,7 +40,6 @@
         <!-- /End Button -->
       </div>
       <!-- /End Nhóm -->
-      <hr>
     </fieldset>
   </form>
   <!--/End Form danh sách câu hỏi -->
